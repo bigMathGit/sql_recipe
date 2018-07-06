@@ -3,7 +3,7 @@ CREATE TABLE mst_user_location (
     user_id   varchar(255)
   , pref_name varchar(255)
   , city_name varchar(255)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO mst_user_location
 VALUES
