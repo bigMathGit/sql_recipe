@@ -1,0 +1,2474 @@
+### 1. 新상가업소DB CNFM_PRMISN
+-- 1	기준년월	STDR_YM_CD
+-- 2	고유번호	STOR_INNB
+-- 3	점포명	STOR_NM
+-- 4	업종소분류코드	SVC_INDUTY_CD
+-- 5	개업년월	OPBIZ_YM
+-- 6	폐업년월	CLSBIZ_YM
+-- 7	지번주소	OLD_ADRES
+-- 8	새주소	NW_ADRES
+-- 9	전화번호	TELNO
+-- 10	블록코드	BLCK_CD
+-- 11	지번ID	HOUS_ID
+-- 12	정제코드	PROC_CLSS
+-- 13	DW_등록_일시	DW_REGIST_DT
+-- 14	도로코드	ROAD_CD
+-- 15	X좌표값	XCNTS_VALUE
+-- 16	Y좌표값	YDNTS_VALUE
+-- 17	프랜차이즈여부	FRC_YN
+-- 18	표준_산업_분류_코드	STD_INDCLS_INDUTY_CD
+create table cnfm_prmisn(
+  stdr_ym_cd string,
+  stor_innb string,
+  stor_nm string,
+  svc_induty_cd string,
+  opbiz_ym string,
+  clsbiz_ym string,
+  old_adres string,
+  nw_adres string,
+  telno string,
+  blck_cd string,
+  hous_id string,
+  proc_clss string,
+  dw_regist_dt string,
+  road_cd date,
+  xcnts_value double,
+  ydnts_value double,
+  frc_yn string,
+  std_indcls_induty_cd string)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+
+### 2. BC외국인 시간대 매출 BC_FORN_TM_SELNG
+-- 1	기준년월	STD_YM
+-- 2	그리드50코드	GRID50_CD
+-- 3	업종코드	SCLS_CD
+-- 4	외국인구분코드	FORN_CD
+-- 5	시간대	TMST_CD
+-- 6	매출금액	TOT_SALAMT
+create table bc_forn_tm_selng(
+  std_ym String,
+  grid50_cd String,
+  scls_cd String,
+  forn_cd String,
+  tmst_cd String,
+  tot_salamt double
+  )
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+
+### 3. BC외국인 요일별 매출 BC_FORN_WK_SELNG
+-- 1	기준년월	STD_YM
+-- 2	그리드50코드	GRID50_CD
+-- 3	업종코드	SCLS_CD
+-- 4	외국인구분코드	FORN_CD
+-- 5	요일코드	WK_CD
+-- 6	매출금액	TOT_SALAMT
+create table bc_forn_wk_selng(
+  std_ym String,
+  grid50_cd String,
+  scls_cd String,
+  forn_cd String,
+  wk_cd String,
+  tot_salamt double
+  )
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+
+### 4. 매출집계 SELNG
+-- 1	기준_년월_코드	STDR_YM_CD
+-- 2	블록_코드	BLCK_CD
+-- 3	서비스_업종_코드	SVC_INDUTY_CD
+-- 4	평균_영업_개월_수	AVRG_BSN_MONTH_CO
+-- 5	당월_매출_금액	THSMON_SELNG_AMT
+-- 6	당월_매출_건수	THSMON_SELNG_CO
+-- 7	주중_매출_금액	MDWK_SELNG_AMT
+-- 8	주말_매출_금액	WKEND_SELNG_AMT
+-- 9	월요일_매출_금액	MON_SELNG_AMT
+-- 10	화요일_매출_금액	TUES_SELNG_AMT
+-- 11	수요일_매출_금액	WED_SELNG_AMT
+-- 12	목요일_매출_금액	THUR_SELNG_AMT
+-- 13	금요일_매출_금액	FRI_SELNG_AMT
+-- 14	토요일_매출_금액	SAT_SELNG_AMT
+-- 15	일요일_매출_금액	SUN_SELNG_AMT
+-- 16	시간대_00~06_매출_금액	TMZON_00_06_SELNG_AMT
+-- 17	시간대_06~11_매출_금액	TMZON_06_11_SELNG_AMT
+-- 18	시간대_11~14_매출_금액	TMZON_11_14_SELNG_AMT
+-- 19	시간대_14~17_매출_금액	TMZON_14_17_SELNG_AMT
+-- 20	시간대_17~21_매출_금액	TMZON_17_21_SELNG_AMT
+-- 21	시간대_21~24_매출_금액	TMZON_21_24_SELNG_AMT
+-- 22	남성_매출_금액	ML_SELNG_AMT
+-- 23	여성_매출_금액	FML_SELNG_AMT
+-- 24	연령대_10_매출_금액	AGRDE_10_SELNG_AMT
+-- 25	연령대_20_매출_금액	AGRDE_20_SELNG_AMT
+-- 26	연령대_30_매출_금액	AGRDE_30_SELNG_AMT
+-- 27	연령대_40_매출_금액	AGRDE_40_SELNG_AMT
+-- 28	연령대_50_매출_금액	AGRDE_50_SELNG_AMT
+-- 29	연령대_60_이상_매출_금액	AGRDE_60_ABOVE_SELNG_AMT
+-- 30	주중_매출_건수	MDWK_SELNG_CO
+-- 31	주말_매출_건수	WKEND_SELNG_CO
+-- 32	월요일_매출_건수	MON_SELNG_CO
+-- 33	화요일_매출_건수	TUES_SELNG_CO
+-- 34	수요일_매출_건수	WED_SELNG_CO
+-- 35	목요일_매출_건수	THUR_SELNG_CO
+-- 36	금요일_매출_건수	FRI_SELNG_CO
+-- 37	토요일_매출_건수	SAT_SELNG_CO
+-- 38	일요일_매출_건수	SUN_SELNG_CO
+-- 39	시간대_건수~06_매출_건수	TMZON_00_06_SELNG_CO
+-- 40	시간대_건수~11_매출_건수	TMZON_06_11_SELNG_CO
+-- 41	시간대_건수~14_매출_건수	TMZON_11_14_SELNG_CO
+-- 42	시간대_건수~17_매출_건수	TMZON_14_17_SELNG_CO
+-- 43	시간대_건수~21_매출_건수	TMZON_17_21_SELNG_CO
+-- 44	시간대_건수~24_매출_건수	TMZON_21_24_SELNG_CO
+-- 45	남성_매출_건수	ML_SELNG_CO
+-- 46	여성_매출_건수	FML_SELNG_CO
+-- 47	연령대_10_매출_건수	AGRDE_10_SELNG_CO
+-- 48	연령대_20_매출_건수	AGRDE_20_SELNG_CO
+-- 49	연령대_30_매출_건수	AGRDE_30_SELNG_CO
+-- 50	연령대_40_매출_건수	AGRDE_40_SELNG_CO
+-- 51	연령대_50_매출_건수	AGRDE_50_SELNG_CO
+-- 52	연령대_60_이상_매출_건수	AGRDE_60_ABOVE_SELNG_CO
+-- 53	점포수	STOR_CO
+create table selng(
+  stdr_ym_cd string,
+  blck_cd string,
+  svc_induty_cd  string,
+  avrg_bsn_month_co double,
+  thsmon_selng_amt double,
+  thsmon_selng_co double,
+  mdwk_selng_amt double,
+  wkend_selng_amt double,
+  mon_selng_amt double,
+  tues_selng_amt double,
+  wed_selng_amt double,
+  thur_selng_amt double,
+  fri_selng_amt double,
+  sat_selng_amt double,
+  sun_selng_amt double,
+  tmzon_00_06_selng_amt double,
+  tmzon_06_11_selng_amt double,
+  tmzon_11_14_selng_amt double,
+  tmzon_14_17_selng_amt double,
+  tmzon_17_21_selng_amt double,
+  tmzon_21_24_selng_amt double,
+  ml_selng_amt double,
+  fml_selng_amt double,
+  agrde_10_selng_amt double,
+  agrde_20_selng_amt double,
+  agrde_30_selng_amt double,
+  agrde_40_selng_amt double,
+  agrde_50_selng_amt double,
+  agrde_60_above_selng_amt double,
+  mdwk_selng_co double,
+  wkend_selng_co double,
+  mon_selng_co double,
+  tues_selng_co double,
+  wed_selng_co double,
+  thur_selng_co double,
+  fri_selng_co double,
+  sat_selng_co double,
+  sun_selng_co double,
+  tmzon_00_06_selng_co double,
+  tmzon_06_11_selng_co double,
+  tmzon_11_14_selng_co double,
+  tmzon_14_17_selng_co double,
+  tmzon_17_21_selng_co double,
+  tmzon_21_24_selng_co double,
+  ml_selng_co double,
+  fml_selng_co double,
+  agrde_10_selng_co double,
+  agrde_20_selng_co double,
+  agrde_30_selng_co double,
+  agrde_40_selng_co double,
+  agrde_50_selng_co double,
+  agrde_60_above_selng_co double,
+  stor_co double)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 5. 서울시 장기 외국인 생활인구 FORN_LONG_RESD
+-- 1	일자	YMD
+-- 2	시간	TT
+-- 3	행정동코드	H_DNG_CD
+-- 4	집계구코드	SMGU_CD
+-- 5	생활인구합계	SPOP
+-- 6	중국	CHN
+-- 7	베트남	VNM
+-- 8	미국	USA
+-- 9	우즈베키스탄	UZB
+-- 10	필리핀	PHL
+-- 11	캄보디아	KHM
+-- 12	인도네시아	IDN
+-- 13	네팔	NPL
+-- 14	태국	THA
+-- 15	스리랑카	LKA
+-- 16	일본	JPN
+-- 17	미얀마	MMR
+-- 18	러시아	RUS
+-- 19	캐나다	CAN
+-- 20	타이완	TWN
+-- 21	몽골	MNG
+-- 22	방글라데시	BGD
+-- 23	파키스탄	PAK
+-- 24	인도	IND
+-- 25	카자흐스탄	KAZ
+-- 26	오스트레일리아	AUS
+-- 27	영국	GBR
+-- 28	카르기스스탄	KGZ
+-- 29	프랑스	FRA
+-- 30	뉴질랜드	NZL
+-- 31	독일	DEU
+-- 32	이집트	EGY
+-- 33	말레이시아	MYS
+-- 34	우크라이나	UKR
+-- 35	나이지리아	NGA
+-- 36	기타	ETC
+create table forn_long_resd(
+  ymd string,
+  tt string,
+  h_dng_cd string,
+  smgu_cd string,
+  spop double,
+  chn double,
+  vnm double,
+  usa double,
+  uzb double,
+  phl double,
+  khm double,
+  idn double,
+  npl double,
+  tha double,
+  lka double,
+  jpn double,
+  mmr double,
+  rus double,
+  can double,
+  twn double,
+  mng double,
+  bgd double,
+  pak double,
+  ind double,
+  kaz double,
+  aus double,
+  gbr double,
+  kgz double,
+  fra double,
+  nzl double,
+  deu double,
+  egy double,
+  mys double,
+  ukr double,
+  nga double,
+  etc double)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 6. 서울시 단기 외국인 생활인구 FORN_TEMP_RESD
+-- 1	일자	YMD
+-- 2	시간	TT
+-- 3	행정동코드	H_DNG_CD
+-- 4	집계구코드	SMGU_CD
+-- 5	생활인구합계	SPOP
+-- 6	중국	CHN
+-- 7	태국	THA
+-- 8	미국	USA
+-- 9	일본	JPN
+-- 10	홍콩	HKG
+-- 11	타이완	TWN
+-- 12	베트남	VNM
+-- 13	러시아	RUS
+-- 14	필리핀	PHL
+-- 15	인도네시아	IDN
+-- 16	말레이시아	MYS
+-- 17	오스트레일리아	AUS
+-- 18	싱가포르	SGP
+-- 19	캐나다	CAN
+-- 20	인도	IND
+-- 21	영국	GBR
+-- 22	프랑스	FRA
+-- 23	독일	DEU
+-- 24	걸프협력획의국	GCC
+-- 25	기타	ETC
+create table forn_temp_resd(
+  ymd string,
+  tt string,
+  h_dng_cd string,
+  smgu_cd string,
+  spop double,
+  chn double,
+  tha double,
+  usa double,
+  jpn double,
+  hkg double,
+  twn double,
+  vnm double,
+  rus double,
+  phl double,
+  idn double,
+  mys double,
+  aus double,
+  sgp double,
+  can double,
+  ind double,
+  gbr double,
+  fra double,
+  deu double,
+  gcc double,
+  etc double)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 7. 유동인구_다차원 FLPOP_MDIM
+-- 1	기준_년월_코드	STDR_YM_CD
+-- 2	도로_LINK_ID	ROAD_LINK_ID
+-- 3	시군구코드	SIGNGU_CD
+-- 4	행정동코드	ADSTRD_CD
+-- 5	X좌표최소값	XCNTS_MIN_VALUE
+-- 6	Y좌표최소값	YDNTS_MIN_VALUE
+-- 7	X좌표최대값	XCNTS_MAX_VALUE
+-- 8	Y좌표최대값	YDNTS_MAX_VALUE
+-- 9	요일코드	DAYWEEK_CD
+-- 10	연령대코드	AGRDE_CD
+-- 11	시간대코드	TMZON_CD
+-- 12	유동인구_수	FLPOP_CO
+create table flpop_mdim(
+  stdr_ym_cd string,
+  road_link_id string,
+  signgu_cd string,
+  adstrd_cd string,
+  xcnts_min_value double,
+  ydnts_min_value double,
+  xcnts_max_value double,
+  ydnts_max_value double,
+  dayweek_cd string,
+  agrde_cd string,
+  tmzon_cd string,
+  flpop_co double)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 8. 블록집계_유동인구 BLCK_FLPOP
+-- 1	기준_년월_코드	STDR_YM_CD
+-- 2	블록_코드	BLCK_CD
+-- 3	총_유동인구_수	TOT_FLPOP_CO
+-- 4	남성_유동인구_수	ML_FLPOP_CO
+-- 5	여성_유동인구_수	FML_FLPOP_CO
+-- 6	연령대_10_유동인구_수	AGRDE_10_FLPOP_CO
+-- 7	연령대_20_유동인구_수	AGRDE_20_FLPOP_CO
+-- 8	연령대_30_유동인구_수	AGRDE_30_FLPOP_CO
+-- 9	연령대_40_유동인구_수	AGRDE_40_FLPOP_CO
+-- 10	연령대_50_유동인구_수	AGRDE_50_FLPOP_CO
+-- 11	연령대_60_이상_유동인구_수	AGRDE_60_ABOVE_FLPOP_CO
+-- 12	시간대_1_유동인구_수	TMZON_1_FLPOP_CO
+-- 13	시간대_2_유동인구_수	TMZON_2_FLPOP_CO
+-- 14	시간대_3_유동인구_수	TMZON_3_FLPOP_CO
+-- 15	시간대_4_유동인구_수	TMZON_4_FLPOP_CO
+-- 16	시간대_5_유동인구_수	TMZON_5_FLPOP_CO
+-- 17	시간대_6_유동인구_수	TMZON_6_FLPOP_CO
+-- 18	월요일_유동인구_수	MON_FLPOP_CO
+-- 19	화요일_유동인구_수	TUES_FLPOP_CO
+-- 20	수요일_유동인구_수	WED_FLPOP_CO
+-- 21	목요일_유동인구_수	THUR_FLPOP_CO
+-- 22	금요일_유동인구_수	FRI_FLPOP_CO
+-- 23	토요일_유동인구_수	SAT_FLPOP_CO
+-- 24	일요일_유동인구_수	SUN_FLPOP_CO
+-- 25	남성연령대_10_월요일시간대_1_유동인구_수	MAG_10_MONTM_1_FLPOP_CO
+-- 26	남성연령대_10_월요일시간대_2_유동인구_수	MAG_10_MONTM_2_FLPOP_CO
+-- 28	남성연령대_10_월요일시간대_4_유동인구_수	MAG_10_MONTM_4_FLPOP_CO
+-- 29	남성연령대_10_월요일시간대_5_유동인구_수	MAG_10_MONTM_5_FLPOP_CO
+-- 30	남성연령대_10_월요일시간대_6_유동인구_수	MAG_10_MONTM_6_FLPOP_CO
+-- 31	남성연령대_10_화요일시간대_1_유동인구_수	MAG_10_TUETM_1_FLPOP_CO
+-- 32	남성연령대_10_화요일시간대_2_유동인구_수	MAG_10_TUETM_2_FLPOP_CO
+-- 33	남성연령대_10_화요일시간대_3_유동인구_수	MAG_10_TUETM_3_FLPOP_CO
+-- 34	남성연령대_10_화요일시간대_4_유동인구_수	MAG_10_TUETM_4_FLPOP_CO
+-- 35	남성연령대_10_화요일시간대_5_유동인구_수	MAG_10_TUETM_5_FLPOP_CO
+-- 36	남성연령대_10_화요일시간대_6_유동인구_수	MAG_10_TUETM_6_FLPOP_CO
+-- 37	남성연령대_10_수요일시간대_1_유동인구_수	MAG_10_WEDTM_1_FLPOP_CO
+-- 38	남성연령대_10_수요일시간대_2_유동인구_수	MAG_10_WEDTM_2_FLPOP_CO
+-- 39	남성연령대_10_수요일시간대_3_유동인구_수	MAG_10_WEDTM_3_FLPOP_CO
+-- 40	남성연령대_10_수요일시간대_4_유동인구_수	MAG_10_WEDTM_4_FLPOP_CO
+-- 41	남성연령대_10_수요일시간대_5_유동인구_수	MAG_10_WEDTM_5_FLPOP_CO
+-- 42	남성연령대_10_수요일시간대_6_유동인구_수	MAG_10_WEDTM_6_FLPOP_CO
+-- 43	남성연령대_10_목요일시간대_1_유동인구_수	MAG_10_THUTM_1_FLPOP_CO
+-- 45	남성연령대_10_목요일시간대_3_유동인구_수	MAG_10_THUTM_3_FLPOP_CO
+-- 46	남성연령대_10_목요일시간대_4_유동인구_수	MAG_10_THUTM_4_FLPOP_CO
+-- 47	남성연령대_10_목요일시간대_5_유동인구_수	MAG_10_THUTM_5_FLPOP_CO
+-- 48	남성연령대_10_목요일시간대_6_유동인구_수	MAG_10_THUTM_6_FLPOP_CO
+-- 49	남성연령대_10_금요일시간대_1_유동인구_수	MAG_10_FRITM_1_FLPOP_CO
+-- 50	남성연령대_10_금요일시간대_2_유동인구_수	MAG_10_FRITM_2_FLPOP_CO
+-- 51	남성연령대_10_금요일시간대_3_유동인구_수	MAG_10_FRITM_3_FLPOP_CO
+-- 52	남성연령대_10_금요일시간대_4_유동인구_수	MAG_10_FRITM_4_FLPOP_CO
+-- 53	남성연령대_10_금요일시간대_5_유동인구_수	MAG_10_FRITM_5_FLPOP_CO
+-- 54	남성연령대_10_금요일시간대_6_유동인구_수	MAG_10_FRITM_6_FLPOP_CO
+-- 55	남성연령대_10_토요일시간대_1_유동인구_수	MAG_10_SATTM_1_FLPOP_CO
+-- 56	남성연령대_10_토요일시간대_2_유동인구_수	MAG_10_SATTM_2_FLPOP_CO
+-- 57	남성연령대_10_토요일시간대_3_유동인구_수	MAG_10_SATTM_3_FLPOP_CO
+-- 58	남성연령대_10_토요일시간대_4_유동인구_수	MAG_10_SATTM_4_FLPOP_CO
+-- 59	남성연령대_10_토요일시간대_5_유동인구_수	MAG_10_SATTM_5_FLPOP_CO
+-- 60	남성연령대_10_토요일시간대_6_유동인구_수	MAG_10_SATTM_6_FLPOP_CO
+-- 61	남성연령대_10_일요일시간대_1_유동인구_수	MAG_10_SUNTM_1_FLPOP_CO
+-- 62	남성연령대_10_일요일시간대_2_유동인구_수	MAG_10_SUNTM_2_FLPOP_CO
+-- 63	남성연령대_10_일요일시간대_3_유동인구_수	MAG_10_SUNTM_3_FLPOP_CO
+-- 64	남성연령대_10_일요일시간대_4_유동인구_수	MAG_10_SUNTM_4_FLPOP_CO
+-- 65	남성연령대_10_일요일시간대_5_유동인구_수	MAG_10_SUNTM_5_FLPOP_CO
+-- 66	남성연령대_10_일요일시간대_6_유동인구_수	MAG_10_SUNTM_6_FLPOP_CO
+-- 67	남성연령대_20_월요일시간대_1_유동인구_수	MAG_20_MONTM_1_FLPOP_CO
+-- 68	남성연령대_20_월요일시간대_2_유동인구_수	MAG_20_MONTM_2_FLPOP_CO
+-- 69	남성연령대_20_월요일시간대_3_유동인구_수	MAG_20_MONTM_3_FLPOP_CO
+-- 70	남성연령대_20_월요일시간대_4_유동인구_수	MAG_20_MONTM_4_FLPOP_CO
+-- 71	남성연령대_20_월요일시간대_5_유동인구_수	MAG_20_MONTM_5_FLPOP_CO
+-- 72	남성연령대_20_월요일시간대_6_유동인구_수	MAG_20_MONTM_6_FLPOP_CO
+-- 73	남성연령대_20_화요일시간대_1_유동인구_수	MAG_20_TUETM_1_FLPOP_CO
+-- 74	남성연령대_20_화요일시간대_2_유동인구_수	MAG_20_TUETM_2_FLPOP_CO
+-- 75	남성연령대_20_화요일시간대_3_유동인구_수	MAG_20_TUETM_3_FLPOP_CO
+-- 76	남성연령대_20_화요일시간대_4_유동인구_수	MAG_20_TUETM_4_FLPOP_CO
+-- 77	남성연령대_20_화요일시간대_5_유동인구_수	MAG_20_TUETM_5_FLPOP_CO
+-- 78	남성연령대_20_화요일시간대_6_유동인구_수	MAG_20_TUETM_6_FLPOP_CO
+-- 79	남성연령대_20_수요일시간대_1_유동인구_수	MAG_20_WEDTM_1_FLPOP_CO
+-- 80	남성연령대_20_수요일시간대_2_유동인구_수	MAG_20_WEDTM_2_FLPOP_CO
+-- 81	남성연령대_20_수요일시간대_3_유동인구_수	MAG_20_WEDTM_3_FLPOP_CO
+-- 82	남성연령대_20_수요일시간대_4_유동인구_수	MAG_20_WEDTM_4_FLPOP_CO
+-- 83	남성연령대_20_수요일시간대_5_유동인구_수	MAG_20_WEDTM_5_FLPOP_CO
+-- 84	남성연령대_20_수요일시간대_6_유동인구_수	MAG_20_WEDTM_6_FLPOP_CO
+-- 85	남성연령대_20_목요일시간대_1_유동인구_수	MAG_20_THUTM_1_FLPOP_CO
+-- 86	남성연령대_20_목요일시간대_2_유동인구_수	MAG_20_THUTM_2_FLPOP_CO
+-- 87	남성연령대_20_목요일시간대_3_유동인구_수	MAG_20_THUTM_3_FLPOP_CO
+-- 88	남성연령대_20_목요일시간대_4_유동인구_수	MAG_20_THUTM_4_FLPOP_CO
+-- 89	남성연령대_20_목요일시간대_5_유동인구_수	MAG_20_THUTM_5_FLPOP_CO
+-- 90	남성연령대_20_목요일시간대_6_유동인구_수	MAG_20_THUTM_6_FLPOP_CO
+-- 91	남성연령대_20_금요일시간대_1_유동인구_수	MAG_20_FRITM_1_FLPOP_CO
+-- 92	남성연령대_20_금요일시간대_2_유동인구_수	MAG_20_FRITM_2_FLPOP_CO
+-- 93	남성연령대_20_금요일시간대_3_유동인구_수	MAG_20_FRITM_3_FLPOP_CO
+-- 94	남성연령대_20_금요일시간대_4_유동인구_수	MAG_20_FRITM_4_FLPOP_CO
+-- 95	남성연령대_20_금요일시간대_5_유동인구_수	MAG_20_FRITM_5_FLPOP_CO
+-- 96	남성연령대_20_금요일시간대_6_유동인구_수	MAG_20_FRITM_6_FLPOP_CO
+-- 97	남성연령대_20_토요일시간대_1_유동인구_수	MAG_20_SATTM_1_FLPOP_CO
+-- 98	남성연령대_20_토요일시간대_2_유동인구_수	MAG_20_SATTM_2_FLPOP_CO
+-- 99	남성연령대_20_토요일시간대_3_유동인구_수	MAG_20_SATTM_3_FLPOP_CO
+-- 100	남성연령대_20_토요일시간대_4_유동인구_수	MAG_20_SATTM_4_FLPOP_CO
+-- 101	남성연령대_20_토요일시간대_5_유동인구_수	MAG_20_SATTM_5_FLPOP_CO
+-- 102	남성연령대_20_토요일시간대_6_유동인구_수	MAG_20_SATTM_6_FLPOP_CO
+-- 103	남성연령대_20_일요일시간대_1_유동인구_수	MAG_20_SUNTM_1_FLPOP_CO
+-- 104	남성연령대_20_일요일시간대_2_유동인구_수	MAG_20_SUNTM_2_FLPOP_CO
+-- 105	남성연령대_20_일요일시간대_3_유동인구_수	MAG_20_SUNTM_3_FLPOP_CO
+-- 106	남성연령대_20_일요일시간대_4_유동인구_수	MAG_20_SUNTM_4_FLPOP_CO
+-- 107	남성연령대_20_일요일시간대_5_유동인구_수	MAG_20_SUNTM_5_FLPOP_CO
+-- 108	남성연령대_20_일요일시간대_6_유동인구_수	MAG_20_SUNTM_6_FLPOP_CO
+-- 109	남성연령대_30_월요일시간대_1_유동인구_수	MAG_30_MONTM_1_FLPOP_CO
+-- 110	남성연령대_30_월요일시간대_2_유동인구_수	MAG_30_MONTM_2_FLPOP_CO
+-- 111	남성연령대_30_월요일시간대_3_유동인구_수	MAG_30_MONTM_3_FLPOP_CO
+-- 112	남성연령대_30_월요일시간대_4_유동인구_수	MAG_30_MONTM_4_FLPOP_CO
+-- 113	남성연령대_30_월요일시간대_5_유동인구_수	MAG_30_MONTM_5_FLPOP_CO
+-- 114	남성연령대_30_월요일시간대_6_유동인구_수	MAG_30_MONTM_6_FLPOP_CO
+-- 115	남성연령대_30_화요일시간대_1_유동인구_수	MAG_30_TUETM_1_FLPOP_CO
+-- 116	남성연령대_30_화요일시간대_2_유동인구_수	MAG_30_TUETM_2_FLPOP_CO
+-- 117	남성연령대_30_화요일시간대_3_유동인구_수	MAG_30_TUETM_3_FLPOP_CO
+-- 118	남성연령대_30_화요일시간대_4_유동인구_수	MAG_30_TUETM_4_FLPOP_CO
+-- 119	남성연령대_30_화요일시간대_5_유동인구_수	MAG_30_TUETM_5_FLPOP_CO
+-- 120	남성연령대_30_화요일시간대_6_유동인구_수	MAG_30_TUETM_6_FLPOP_CO
+-- 121	남성연령대_30_수요일시간대_1_유동인구_수	MAG_30_WEDTM_1_FLPOP_CO
+-- 122	남성연령대_30_수요일시간대_2_유동인구_수	MAG_30_WEDTM_2_FLPOP_CO
+-- 123	남성연령대_30_수요일시간대_3_유동인구_수	MAG_30_WEDTM_3_FLPOP_CO
+-- 124	남성연령대_30_수요일시간대_4_유동인구_수	MAG_30_WEDTM_4_FLPOP_CO
+-- 125	남성연령대_30_수요일시간대_5_유동인구_수	MAG_30_WEDTM_5_FLPOP_CO
+-- 126	남성연령대_30_수요일시간대_6_유동인구_수	MAG_30_WEDTM_6_FLPOP_CO
+-- 127	남성연령대_30_목요일시간대_1_유동인구_수	MAG_30_THUTM_1_FLPOP_CO
+-- 128	남성연령대_30_목요일시간대_2_유동인구_수	MAG_30_THUTM_2_FLPOP_CO
+-- 129	남성연령대_30_목요일시간대_3_유동인구_수	MAG_30_THUTM_3_FLPOP_CO
+-- 130	남성연령대_30_목요일시간대_4_유동인구_수	MAG_30_THUTM_4_FLPOP_CO
+-- 131	남성연령대_30_목요일시간대_5_유동인구_수	MAG_30_THUTM_5_FLPOP_CO
+-- 132	남성연령대_30_목요일시간대_6_유동인구_수	MAG_30_THUTM_6_FLPOP_CO
+-- 133	남성연령대_30_금요일시간대_1_유동인구_수	MAG_30_FRITM_1_FLPOP_CO
+-- 134	남성연령대_30_금요일시간대_2_유동인구_수	MAG_30_FRITM_2_FLPOP_CO
+-- 135	남성연령대_30_금요일시간대_3_유동인구_수	MAG_30_FRITM_3_FLPOP_CO
+-- 136	남성연령대_30_금요일시간대_4_유동인구_수	MAG_30_FRITM_4_FLPOP_CO
+-- 137	남성연령대_30_금요일시간대_5_유동인구_수	MAG_30_FRITM_5_FLPOP_CO
+-- 138	남성연령대_30_금요일시간대_6_유동인구_수	MAG_30_FRITM_6_FLPOP_CO
+-- 139	남성연령대_30_토요일시간대_1_유동인구_수	MAG_30_SATTM_1_FLPOP_CO
+-- 140	남성연령대_30_토요일시간대_2_유동인구_수	MAG_30_SATTM_2_FLPOP_CO
+-- 141	남성연령대_30_토요일시간대_3_유동인구_수	MAG_30_SATTM_3_FLPOP_CO
+-- 142	남성연령대_30_토요일시간대_4_유동인구_수	MAG_30_SATTM_4_FLPOP_CO
+-- 143	남성연령대_30_토요일시간대_5_유동인구_수	MAG_30_SATTM_5_FLPOP_CO
+-- 144	남성연령대_30_토요일시간대_6_유동인구_수	MAG_30_SATTM_6_FLPOP_CO
+-- 145	남성연령대_30_일요일시간대_1_유동인구_수	MAG_30_SUNTM_1_FLPOP_CO
+-- 146	남성연령대_30_일요일시간대_2_유동인구_수	MAG_30_SUNTM_2_FLPOP_CO
+-- 147	남성연령대_30_일요일시간대_3_유동인구_수	MAG_30_SUNTM_3_FLPOP_CO
+-- 148	남성연령대_30_일요일시간대_4_유동인구_수	MAG_30_SUNTM_4_FLPOP_CO
+-- 149	남성연령대_30_일요일시간대_5_유동인구_수	MAG_30_SUNTM_5_FLPOP_CO
+-- 150	남성연령대_30_일요일시간대_6_유동인구_수	MAG_30_SUNTM_6_FLPOP_CO
+-- 151	남성연령대_40_월요일시간대_1_유동인구_수	MAG_40_MONTM_1_FLPOP_CO
+-- 152	남성연령대_40_월요일시간대_2_유동인구_수	MAG_40_MONTM_2_FLPOP_CO
+-- 153	남성연령대_40_월요일시간대_3_유동인구_수	MAG_40_MONTM_3_FLPOP_CO
+-- 154	남성연령대_40_월요일시간대_4_유동인구_수	MAG_40_MONTM_4_FLPOP_CO
+-- 155	남성연령대_40_월요일시간대_5_유동인구_수	MAG_40_MONTM_5_FLPOP_CO
+-- 156	남성연령대_40_월요일시간대_6_유동인구_수	MAG_40_MONTM_6_FLPOP_CO
+-- 157	남성연령대_40_화요일시간대_1_유동인구_수	MAG_40_TUETM_1_FLPOP_CO
+-- 158	남성연령대_40_화요일시간대_2_유동인구_수	MAG_40_TUETM_2_FLPOP_CO
+-- 159	남성연령대_40_화요일시간대_3_유동인구_수	MAG_40_TUETM_3_FLPOP_CO
+-- 160	남성연령대_40_화요일시간대_4_유동인구_수	MAG_40_TUETM_4_FLPOP_CO
+-- 161	남성연령대_40_화요일시간대_5_유동인구_수	MAG_40_TUETM_5_FLPOP_CO
+-- 162	남성연령대_40_화요일시간대_6_유동인구_수	MAG_40_TUETM_6_FLPOP_CO
+-- 163	남성연령대_40_수요일시간대_1_유동인구_수	MAG_40_WEDTM_1_FLPOP_CO
+-- 164	남성연령대_40_수요일시간대_2_유동인구_수	MAG_40_WEDTM_2_FLPOP_CO
+-- 165	남성연령대_40_수요일시간대_3_유동인구_수	MAG_40_WEDTM_3_FLPOP_CO
+-- 166	남성연령대_40_수요일시간대_4_유동인구_수	MAG_40_WEDTM_4_FLPOP_CO
+-- 167	남성연령대_40_수요일시간대_5_유동인구_수	MAG_40_WEDTM_5_FLPOP_CO
+-- 168	남성연령대_40_수요일시간대_6_유동인구_수	MAG_40_WEDTM_6_FLPOP_CO
+-- 169	남성연령대_40_목요일시간대_1_유동인구_수	MAG_40_THUTM_1_FLPOP_CO
+-- 170	남성연령대_40_목요일시간대_2_유동인구_수	MAG_40_THUTM_2_FLPOP_CO
+-- 171	남성연령대_40_목요일시간대_3_유동인구_수	MAG_40_THUTM_3_FLPOP_CO
+-- 172	남성연령대_40_목요일시간대_4_유동인구_수	MAG_40_THUTM_4_FLPOP_CO
+-- 173	남성연령대_40_목요일시간대_5_유동인구_수	MAG_40_THUTM_5_FLPOP_CO
+-- 174	남성연령대_40_목요일시간대_6_유동인구_수	MAG_40_THUTM_6_FLPOP_CO
+-- 175	남성연령대_40_금요일시간대_1_유동인구_수	MAG_40_FRITM_1_FLPOP_CO
+-- 176	남성연령대_40_금요일시간대_2_유동인구_수	MAG_40_FRITM_2_FLPOP_CO
+-- 177	남성연령대_40_금요일시간대_3_유동인구_수	MAG_40_FRITM_3_FLPOP_CO
+-- 178	남성연령대_40_금요일시간대_4_유동인구_수	MAG_40_FRITM_4_FLPOP_CO
+-- 179	남성연령대_40_금요일시간대_5_유동인구_수	MAG_40_FRITM_5_FLPOP_CO
+-- 180	남성연령대_40_금요일시간대_6_유동인구_수	MAG_40_FRITM_6_FLPOP_CO
+-- 181	남성연령대_40_토요일시간대_1_유동인구_수	MAG_40_SATTM_1_FLPOP_CO
+-- 182	남성연령대_40_토요일시간대_2_유동인구_수	MAG_40_SATTM_2_FLPOP_CO
+-- 183	남성연령대_40_토요일시간대_3_유동인구_수	MAG_40_SATTM_3_FLPOP_CO
+-- 184	남성연령대_40_토요일시간대_4_유동인구_수	MAG_40_SATTM_4_FLPOP_CO
+-- 185	남성연령대_40_토요일시간대_5_유동인구_수	MAG_40_SATTM_5_FLPOP_CO
+-- 186	남성연령대_40_토요일시간대_6_유동인구_수	MAG_40_SATTM_6_FLPOP_CO
+-- 187	남성연령대_40_일요일시간대_1_유동인구_수	MAG_40_SUNTM_1_FLPOP_CO
+-- 188	남성연령대_40_일요일시간대_2_유동인구_수	MAG_40_SUNTM_2_FLPOP_CO
+-- 189	남성연령대_40_일요일시간대_3_유동인구_수	MAG_40_SUNTM_3_FLPOP_CO
+-- 190	남성연령대_40_일요일시간대_4_유동인구_수	MAG_40_SUNTM_4_FLPOP_CO
+-- 191	남성연령대_40_일요일시간대_5_유동인구_수	MAG_40_SUNTM_5_FLPOP_CO
+-- 192	남성연령대_40_일요일시간대_6_유동인구_수	MAG_40_SUNTM_6_FLPOP_CO
+-- 193	남성연령대_50_월요일시간대_1_유동인구_수	MAG_50_MONTM_1_FLPOP_CO
+-- 194	남성연령대_50_월요일시간대_2_유동인구_수	MAG_50_MONTM_2_FLPOP_CO
+-- 195	남성연령대_50_월요일시간대_3_유동인구_수	MAG_50_MONTM_3_FLPOP_CO
+-- 196	남성연령대_50_월요일시간대_4_유동인구_수	MAG_50_MONTM_4_FLPOP_CO
+-- 197	남성연령대_50_월요일시간대_5_유동인구_수	MAG_50_MONTM_5_FLPOP_CO
+-- 198	남성연령대_50_월요일시간대_6_유동인구_수	MAG_50_MONTM_6_FLPOP_CO
+-- 199	남성연령대_50_화요일시간대_1_유동인구_수	MAG_50_TUETM_1_FLPOP_CO
+-- 200	남성연령대_50_화요일시간대_2_유동인구_수	MAG_50_TUETM_2_FLPOP_CO
+-- 201	남성연령대_50_화요일시간대_3_유동인구_수	MAG_50_TUETM_3_FLPOP_CO
+-- 202	남성연령대_50_화요일시간대_4_유동인구_수	MAG_50_TUETM_4_FLPOP_CO
+-- 203	남성연령대_50_화요일시간대_5_유동인구_수	MAG_50_TUETM_5_FLPOP_CO
+-- 204	남성연령대_50_화요일시간대_6_유동인구_수	MAG_50_TUETM_6_FLPOP_CO
+-- 205	남성연령대_50_수요일시간대_1_유동인구_수	MAG_50_WEDTM_1_FLPOP_CO
+-- 206	남성연령대_50_수요일시간대_2_유동인구_수	MAG_50_WEDTM_2_FLPOP_CO
+-- 207	남성연령대_50_수요일시간대_3_유동인구_수	MAG_50_WEDTM_3_FLPOP_CO
+-- 208	남성연령대_50_수요일시간대_4_유동인구_수	MAG_50_WEDTM_4_FLPOP_CO
+-- 209	남성연령대_50_수요일시간대_5_유동인구_수	MAG_50_WEDTM_5_FLPOP_CO
+-- 210	남성연령대_50_수요일시간대_6_유동인구_수	MAG_50_WEDTM_6_FLPOP_CO
+-- 211	남성연령대_50_목요일시간대_1_유동인구_수	MAG_50_THUTM_1_FLPOP_CO
+-- 212	남성연령대_50_목요일시간대_2_유동인구_수	MAG_50_THUTM_2_FLPOP_CO
+-- 213	남성연령대_50_목요일시간대_3_유동인구_수	MAG_50_THUTM_3_FLPOP_CO
+-- 214	남성연령대_50_목요일시간대_4_유동인구_수	MAG_50_THUTM_4_FLPOP_CO
+-- 215	남성연령대_50_목요일시간대_5_유동인구_수	MAG_50_THUTM_5_FLPOP_CO
+-- 216	남성연령대_50_목요일시간대_6_유동인구_수	MAG_50_THUTM_6_FLPOP_CO
+-- 217	남성연령대_50_금요일시간대_1_유동인구_수	MAG_50_FRITM_1_FLPOP_CO
+-- 218	남성연령대_50_금요일시간대_2_유동인구_수	MAG_50_FRITM_2_FLPOP_CO
+-- 219	남성연령대_50_금요일시간대_3_유동인구_수	MAG_50_FRITM_3_FLPOP_CO
+-- 220	남성연령대_50_금요일시간대_4_유동인구_수	MAG_50_FRITM_4_FLPOP_CO
+-- 221	남성연령대_50_금요일시간대_5_유동인구_수	MAG_50_FRITM_5_FLPOP_CO
+-- 222	남성연령대_50_금요일시간대_6_유동인구_수	MAG_50_FRITM_6_FLPOP_CO
+-- 223	남성연령대_50_토요일시간대_1_유동인구_수	MAG_50_SATTM_1_FLPOP_CO
+-- 224	남성연령대_50_토요일시간대_2_유동인구_수	MAG_50_SATTM_2_FLPOP_CO
+-- 225	남성연령대_50_토요일시간대_3_유동인구_수	MAG_50_SATTM_3_FLPOP_CO
+-- 226	남성연령대_50_토요일시간대_4_유동인구_수	MAG_50_SATTM_4_FLPOP_CO
+-- 227	남성연령대_50_토요일시간대_5_유동인구_수	MAG_50_SATTM_5_FLPOP_CO
+-- 228	남성연령대_50_토요일시간대_6_유동인구_수	MAG_50_SATTM_6_FLPOP_CO
+-- 229	남성연령대_50_일요일시간대_1_유동인구_수	MAG_50_SUNTM_1_FLPOP_CO
+-- 230	남성연령대_50_일요일시간대_2_유동인구_수	MAG_50_SUNTM_2_FLPOP_CO
+-- 231	남성연령대_50_일요일시간대_3_유동인구_수	MAG_50_SUNTM_3_FLPOP_CO
+-- 232	남성연령대_50_일요일시간대_4_유동인구_수	MAG_50_SUNTM_4_FLPOP_CO
+-- 233	남성연령대_50_일요일시간대_5_유동인구_수	MAG_50_SUNTM_5_FLPOP_CO
+-- 234	남성연령대_50_일요일시간대_6_유동인구_수	MAG_50_SUNTM_6_FLPOP_CO
+-- 235	남성연령대_60_이상_월요일시간대_1_유동인구_수	MAG_60_ABOVE_MONTM_1_FLPOP_CO
+-- 236	남성연령대_60_이상_월요일시간대_2_유동인구_수	MAG_60_ABOVE_MONTM_2_FLPOP_CO
+-- 237	남성연령대_60_이상_월요일시간대_3_유동인구_수	MAG_60_ABOVE_MONTM_3_FLPOP_CO
+-- 238	남성연령대_60_이상_월요일시간대_4_유동인구_수	MAG_60_ABOVE_MONTM_4_FLPOP_CO
+-- 239	남성연령대_60_이상_월요일시간대_5_유동인구_수	MAG_60_ABOVE_MONTM_5_FLPOP_CO
+-- 240	남성연령대_60_이상_월요일시간대_6_유동인구_수	MAG_60_ABOVE_MONTM_6_FLPOP_CO
+-- 241	남성연령대_60_이상_화요일시간대_1_유동인구_수	MAG_60_ABOVE_TUETM_1_FLPOP_CO
+-- 242	남성연령대_60_이상_화요일시간대_2_유동인구_수	MAG_60_ABOVE_TUETM_2_FLPOP_CO
+-- 243	남성연령대_60_이상_화요일시간대_3_유동인구_수	MAG_60_ABOVE_TUETM_3_FLPOP_CO
+-- 244	남성연령대_60_이상_화요일시간대_4_유동인구_수	MAG_60_ABOVE_TUETM_4_FLPOP_CO
+-- 245	남성연령대_60_이상_화요일시간대_5_유동인구_수	MAG_60_ABOVE_TUETM_5_FLPOP_CO
+-- 246	남성연령대_60_이상_화요일시간대_6_유동인구_수	MAG_60_ABOVE_TUETM_6_FLPOP_CO
+-- 247	남성연령대_60_이상_수요일시간대_1_유동인구_수	MAG_60_ABOVE_WEDTM_1_FLPOP_CO
+-- 248	남성연령대_60_이상_수요일시간대_2_유동인구_수	MAG_60_ABOVE_WEDTM_2_FLPOP_CO
+-- 249	남성연령대_60_이상_수요일시간대_3_유동인구_수	MAG_60_ABOVE_WEDTM_3_FLPOP_CO
+-- 250	남성연령대_60_이상_수요일시간대_4_유동인구_수	MAG_60_ABOVE_WEDTM_4_FLPOP_CO
+-- 251	남성연령대_60_이상_수요일시간대_5_유동인구_수	MAG_60_ABOVE_WEDTM_5_FLPOP_CO
+-- 252	남성연령대_60_이상_수요일시간대_6_유동인구_수	MAG_60_ABOVE_WEDTM_6_FLPOP_CO
+-- 253	남성연령대_60_이상_목요일시간대_1_유동인구_수	MAG_60_ABOVE_THUTM_1_FLPOP_CO
+-- 254	남성연령대_60_이상_목요일시간대_2_유동인구_수	MAG_60_ABOVE_THUTM_2_FLPOP_CO
+-- 255	남성연령대_60_이상_목요일시간대_3_유동인구_수	MAG_60_ABOVE_THUTM_3_FLPOP_CO
+-- 256	남성연령대_60_이상_목요일시간대_4_유동인구_수	MAG_60_ABOVE_THUTM_4_FLPOP_CO
+-- 257	남성연령대_60_이상_목요일시간대_5_유동인구_수	MAG_60_ABOVE_THUTM_5_FLPOP_CO
+-- 258	남성연령대_60_이상_목요일시간대_6_유동인구_수	MAG_60_ABOVE_THUTM_6_FLPOP_CO
+-- 259	남성연령대_60_이상_금요일시간대_1_유동인구_수	MAG_60_ABOVE_FRITM_1_FLPOP_CO
+-- 260	남성연령대_60_이상_금요일시간대_2_유동인구_수	MAG_60_ABOVE_FRITM_2_FLPOP_CO
+-- 261	남성연령대_60_이상_금요일시간대_3_유동인구_수	MAG_60_ABOVE_FRITM_3_FLPOP_CO
+-- 262	남성연령대_60_이상_금요일시간대_4_유동인구_수	MAG_60_ABOVE_FRITM_4_FLPOP_CO
+-- 263	남성연령대_60_이상_금요일시간대_5_유동인구_수	MAG_60_ABOVE_FRITM_5_FLPOP_CO
+-- 264	남성연령대_60_이상_금요일시간대_6_유동인구_수	MAG_60_ABOVE_FRITM_6_FLPOP_CO
+-- 265	남성연령대_60_이상_토요일시간대_1_유동인구_수	MAG_60_ABOVE_SATTM_1_FLPOP_CO
+-- 266	남성연령대_60_이상_토요일시간대_2_유동인구_수	MAG_60_ABOVE_SATTM_2_FLPOP_CO
+-- 267	남성연령대_60_이상_토요일시간대_3_유동인구_수	MAG_60_ABOVE_SATTM_3_FLPOP_CO
+-- 268	남성연령대_60_이상_토요일시간대_4_유동인구_수	MAG_60_ABOVE_SATTM_4_FLPOP_CO
+-- 269	남성연령대_60_이상_토요일시간대_5_유동인구_수	MAG_60_ABOVE_SATTM_5_FLPOP_CO
+-- 270	남성연령대_60_이상_토요일시간대_6_유동인구_수	MAG_60_ABOVE_SATTM_6_FLPOP_CO
+-- 271	남성연령대_60_이상_일요일시간대_1_유동인구_수	MAG_60_ABOVE_SUNTM_1_FLPOP_CO
+-- 272	남성연령대_60_이상_일요일시간대_2_유동인구_수	MAG_60_ABOVE_SUNTM_2_FLPOP_CO
+-- 273	남성연령대_60_이상_일요일시간대_3_유동인구_수	MAG_60_ABOVE_SUNTM_3_FLPOP_CO
+-- 274	남성연령대_60_이상_일요일시간대_4_유동인구_수	MAG_60_ABOVE_SUNTM_4_FLPOP_CO
+-- 275	남성연령대_60_이상_일요일시간대_5_유동인구_수	MAG_60_ABOVE_SUNTM_5_FLPOP_CO
+-- 276	남성연령대_60_이상_일요일시간대_6_유동인구_수	MAG_60_ABOVE_SUNTM_6_FLPOP_CO
+-- 277	여성연령대_10_월요일시간대_1_유동인구_수	FAG_10_MONTM_1_FLPOP_CO
+-- 278	여성연령대_10_월요일시간대_2_유동인구_수	FAG_10_MONTM_2_FLPOP_CO
+-- 279	여성연령대_10_월요일시간대_3_유동인구_수	FAG_10_MONTM_3_FLPOP_CO
+-- 280	여성연령대_10_월요일시간대_4_유동인구_수	FAG_10_MONTM_4_FLPOP_CO
+-- 281	여성연령대_10_월요일시간대_5_유동인구_수	FAG_10_MONTM_5_FLPOP_CO
+-- 282	여성연령대_10_월요일시간대_6_유동인구_수	FAG_10_MONTM_6_FLPOP_CO
+-- 283	여성연령대_10_화요일시간대_1_유동인구_수	FAG_10_TUETM_1_FLPOP_CO
+-- 284	여성연령대_10_화요일시간대_2_유동인구_수	FAG_10_TUETM_2_FLPOP_CO
+-- 285	여성연령대_10_화요일시간대_3_유동인구_수	FAG_10_TUETM_3_FLPOP_CO
+-- 286	여성연령대_10_화요일시간대_4_유동인구_수	FAG_10_TUETM_4_FLPOP_CO
+-- 287	여성연령대_10_화요일시간대_5_유동인구_수	FAG_10_TUETM_5_FLPOP_CO
+-- 288	여성연령대_10_화요일시간대_6_유동인구_수	FAG_10_TUETM_6_FLPOP_CO
+-- 289	여성연령대_10_수요일시간대_1_유동인구_수	FAG_10_WEDTM_1_FLPOP_CO
+-- 290	여성연령대_10_수요일시간대_2_유동인구_수	FAG_10_WEDTM_2_FLPOP_CO
+-- 291	여성연령대_10_수요일시간대_3_유동인구_수	FAG_10_WEDTM_3_FLPOP_CO
+-- 292	여성연령대_10_수요일시간대_4_유동인구_수	FAG_10_WEDTM_4_FLPOP_CO
+-- 293	여성연령대_10_수요일시간대_5_유동인구_수	FAG_10_WEDTM_5_FLPOP_CO
+-- 294	여성연령대_10_수요일시간대_6_유동인구_수	FAG_10_WEDTM_6_FLPOP_CO
+-- 295	여성연령대_10_목요일시간대_1_유동인구_수	FAG_10_THUTM_1_FLPOP_CO
+-- 296	여성연령대_10_목요일시간대_2_유동인구_수	FAG_10_THUTM_2_FLPOP_CO
+-- 297	여성연령대_10_목요일시간대_3_유동인구_수	FAG_10_THUTM_3_FLPOP_CO
+-- 298	여성연령대_10_목요일시간대_4_유동인구_수	FAG_10_THUTM_4_FLPOP_CO
+-- 299	여성연령대_10_목요일시간대_5_유동인구_수	FAG_10_THUTM_5_FLPOP_CO
+-- 300	여성연령대_10_목요일시간대_6_유동인구_수	FAG_10_THUTM_6_FLPOP_CO
+-- 301	여성연령대_10_금요일시간대_1_유동인구_수	FAG_10_FRITM_1_FLPOP_CO
+-- 302	여성연령대_10_금요일시간대_2_유동인구_수	FAG_10_FRITM_2_FLPOP_CO
+-- 303	여성연령대_10_금요일시간대_3_유동인구_수	FAG_10_FRITM_3_FLPOP_CO
+-- 304	여성연령대_10_금요일시간대_4_유동인구_수	FAG_10_FRITM_4_FLPOP_CO
+-- 305	여성연령대_10_금요일시간대_5_유동인구_수	FAG_10_FRITM_5_FLPOP_CO
+-- 306	여성연령대_10_금요일시간대_6_유동인구_수	FAG_10_FRITM_6_FLPOP_CO
+-- 307	여성연령대_10_토요일시간대_1_유동인구_수	FAG_10_SATTM_1_FLPOP_CO
+-- 308	여성연령대_10_토요일시간대_2_유동인구_수	FAG_10_SATTM_2_FLPOP_CO
+-- 309	여성연령대_10_토요일시간대_3_유동인구_수	FAG_10_SATTM_3_FLPOP_CO
+-- 310	여성연령대_10_토요일시간대_4_유동인구_수	FAG_10_SATTM_4_FLPOP_CO
+-- 311	여성연령대_10_토요일시간대_5_유동인구_수	FAG_10_SATTM_5_FLPOP_CO
+-- 312	여성연령대_10_토요일시간대_6_유동인구_수	FAG_10_SATTM_6_FLPOP_CO
+-- 313	여성연령대_10_일요일시간대_1_유동인구_수	FAG_10_SUNTM_1_FLPOP_CO
+-- 314	여성연령대_10_일요일시간대_2_유동인구_수	FAG_10_SUNTM_2_FLPOP_CO
+-- 315	여성연령대_10_일요일시간대_3_유동인구_수	FAG_10_SUNTM_3_FLPOP_CO
+-- 316	여성연령대_10_일요일시간대_4_유동인구_수	FAG_10_SUNTM_4_FLPOP_CO
+-- 317	여성연령대_10_일요일시간대_5_유동인구_수	FAG_10_SUNTM_5_FLPOP_CO
+-- 318	여성연령대_10_일요일시간대_6_유동인구_수	FAG_10_SUNTM_6_FLPOP_CO
+-- 319	여성연령대_20_월요일시간대_1_유동인구_수	FAG_20_MONTM_1_FLPOP_CO
+-- 320	여성연령대_20_월요일시간대_2_유동인구_수	FAG_20_MONTM_2_FLPOP_CO
+-- 321	여성연령대_20_월요일시간대_3_유동인구_수	FAG_20_MONTM_3_FLPOP_CO
+-- 322	여성연령대_20_월요일시간대_4_유동인구_수	FAG_20_MONTM_4_FLPOP_CO
+-- 323	여성연령대_20_월요일시간대_5_유동인구_수	FAG_20_MONTM_5_FLPOP_CO
+-- 324	여성연령대_20_월요일시간대_6_유동인구_수	FAG_20_MONTM_6_FLPOP_CO
+-- 325	여성연령대_20_화요일시간대_1_유동인구_수	FAG_20_TUETM_1_FLPOP_CO
+-- 326	여성연령대_20_화요일시간대_2_유동인구_수	FAG_20_TUETM_2_FLPOP_CO
+-- 327	여성연령대_20_화요일시간대_3_유동인구_수	FAG_20_TUETM_3_FLPOP_CO
+-- 328	여성연령대_20_화요일시간대_4_유동인구_수	FAG_20_TUETM_4_FLPOP_CO
+-- 329	여성연령대_20_화요일시간대_5_유동인구_수	FAG_20_TUETM_5_FLPOP_CO
+-- 330	여성연령대_20_화요일시간대_6_유동인구_수	FAG_20_TUETM_6_FLPOP_CO
+-- 331	여성연령대_20_수요일시간대_1_유동인구_수	FAG_20_WEDTM_1_FLPOP_CO
+-- 332	여성연령대_20_수요일시간대_2_유동인구_수	FAG_20_WEDTM_2_FLPOP_CO
+-- 333	여성연령대_20_수요일시간대_3_유동인구_수	FAG_20_WEDTM_3_FLPOP_CO
+-- 334	여성연령대_20_수요일시간대_4_유동인구_수	FAG_20_WEDTM_4_FLPOP_CO
+-- 335	여성연령대_20_수요일시간대_5_유동인구_수	FAG_20_WEDTM_5_FLPOP_CO
+-- 336	여성연령대_20_수요일시간대_6_유동인구_수	FAG_20_WEDTM_6_FLPOP_CO
+-- 337	여성연령대_20_목요일시간대_1_유동인구_수	FAG_20_THUTM_1_FLPOP_CO
+-- 338	여성연령대_20_목요일시간대_2_유동인구_수	FAG_20_THUTM_2_FLPOP_CO
+-- 339	여성연령대_20_목요일시간대_3_유동인구_수	FAG_20_THUTM_3_FLPOP_CO
+-- 340	여성연령대_20_목요일시간대_4_유동인구_수	FAG_20_THUTM_4_FLPOP_CO
+-- 341	여성연령대_20_목요일시간대_5_유동인구_수	FAG_20_THUTM_5_FLPOP_CO
+-- 342	여성연령대_20_목요일시간대_6_유동인구_수	FAG_20_THUTM_6_FLPOP_CO
+-- 343	여성연령대_20_금요일시간대_1_유동인구_수	FAG_20_FRITM_1_FLPOP_CO
+-- 344	여성연령대_20_금요일시간대_2_유동인구_수	FAG_20_FRITM_2_FLPOP_CO
+-- 345	여성연령대_20_금요일시간대_3_유동인구_수	FAG_20_FRITM_3_FLPOP_CO
+-- 346	여성연령대_20_금요일시간대_4_유동인구_수	FAG_20_FRITM_4_FLPOP_CO
+-- 347	여성연령대_20_금요일시간대_5_유동인구_수	FAG_20_FRITM_5_FLPOP_CO
+-- 348	여성연령대_20_금요일시간대_6_유동인구_수	FAG_20_FRITM_6_FLPOP_CO
+-- 349	여성연령대_20_토요일시간대_1_유동인구_수	FAG_20_SATTM_1_FLPOP_CO
+-- 350	여성연령대_20_토요일시간대_2_유동인구_수	FAG_20_SATTM_2_FLPOP_CO
+-- 351	여성연령대_20_토요일시간대_3_유동인구_수	FAG_20_SATTM_3_FLPOP_CO
+-- 352	여성연령대_20_토요일시간대_4_유동인구_수	FAG_20_SATTM_4_FLPOP_CO
+-- 353	여성연령대_20_토요일시간대_5_유동인구_수	FAG_20_SATTM_5_FLPOP_CO
+-- 354	여성연령대_20_토요일시간대_6_유동인구_수	FAG_20_SATTM_6_FLPOP_CO
+-- 355	여성연령대_20_일요일시간대_1_유동인구_수	FAG_20_SUNTM_1_FLPOP_CO
+-- 356	여성연령대_20_일요일시간대_2_유동인구_수	FAG_20_SUNTM_2_FLPOP_CO
+-- 357	여성연령대_20_일요일시간대_3_유동인구_수	FAG_20_SUNTM_3_FLPOP_CO
+-- 358	여성연령대_20_일요일시간대_4_유동인구_수	FAG_20_SUNTM_4_FLPOP_CO
+-- 359	여성연령대_20_일요일시간대_5_유동인구_수	FAG_20_SUNTM_5_FLPOP_CO
+-- 360	여성연령대_20_일요일시간대_6_유동인구_수	FAG_20_SUNTM_6_FLPOP_CO
+-- 361	여성연령대_30_월요일시간대_1_유동인구_수	FAG_30_MONTM_1_FLPOP_CO
+-- 362	여성연령대_30_월요일시간대_2_유동인구_수	FAG_30_MONTM_2_FLPOP_CO
+-- 363	여성연령대_30_월요일시간대_3_유동인구_수	FAG_30_MONTM_3_FLPOP_CO
+-- 364	여성연령대_30_월요일시간대_4_유동인구_수	FAG_30_MONTM_4_FLPOP_CO
+-- 365	여성연령대_30_월요일시간대_5_유동인구_수	FAG_30_MONTM_5_FLPOP_CO
+-- 366	여성연령대_30_월요일시간대_6_유동인구_수	FAG_30_MONTM_6_FLPOP_CO
+-- 367	여성연령대_30_화요일시간대_1_유동인구_수	FAG_30_TUETM_1_FLPOP_CO
+-- 368	여성연령대_30_화요일시간대_2_유동인구_수	FAG_30_TUETM_2_FLPOP_CO
+-- 369	여성연령대_30_화요일시간대_3_유동인구_수	FAG_30_TUETM_3_FLPOP_CO
+-- 370	여성연령대_30_화요일시간대_4_유동인구_수	FAG_30_TUETM_4_FLPOP_CO
+-- 371	여성연령대_30_화요일시간대_5_유동인구_수	FAG_30_TUETM_5_FLPOP_CO
+-- 372	여성연령대_30_화요일시간대_6_유동인구_수	FAG_30_TUETM_6_FLPOP_CO
+-- 373	여성연령대_30_수요일시간대_1_유동인구_수	FAG_30_WEDTM_1_FLPOP_CO
+-- 374	여성연령대_30_수요일시간대_2_유동인구_수	FAG_30_WEDTM_2_FLPOP_CO
+-- 375	여성연령대_30_수요일시간대_3_유동인구_수	FAG_30_WEDTM_3_FLPOP_CO
+-- 376	여성연령대_30_수요일시간대_4_유동인구_수	FAG_30_WEDTM_4_FLPOP_CO
+-- 377	여성연령대_30_수요일시간대_5_유동인구_수	FAG_30_WEDTM_5_FLPOP_CO
+-- 378	여성연령대_30_수요일시간대_6_유동인구_수	FAG_30_WEDTM_6_FLPOP_CO
+-- 379	여성연령대_30_목요일시간대_1_유동인구_수	FAG_30_THUTM_1_FLPOP_CO
+-- 380	여성연령대_30_목요일시간대_2_유동인구_수	FAG_30_THUTM_2_FLPOP_CO
+-- 381	여성연령대_30_목요일시간대_3_유동인구_수	FAG_30_THUTM_3_FLPOP_CO
+-- 382	여성연령대_30_목요일시간대_4_유동인구_수	FAG_30_THUTM_4_FLPOP_CO
+-- 383	여성연령대_30_목요일시간대_5_유동인구_수	FAG_30_THUTM_5_FLPOP_CO
+-- 384	여성연령대_30_목요일시간대_6_유동인구_수	FAG_30_THUTM_6_FLPOP_CO
+-- 385	여성연령대_30_금요일시간대_1_유동인구_수	FAG_30_FRITM_1_FLPOP_CO
+-- 386	여성연령대_30_금요일시간대_2_유동인구_수	FAG_30_FRITM_2_FLPOP_CO
+-- 387	여성연령대_30_금요일시간대_3_유동인구_수	FAG_30_FRITM_3_FLPOP_CO
+-- 388	여성연령대_30_금요일시간대_4_유동인구_수	FAG_30_FRITM_4_FLPOP_CO
+-- 389	여성연령대_30_금요일시간대_5_유동인구_수	FAG_30_FRITM_5_FLPOP_CO
+-- 390	여성연령대_30_금요일시간대_6_유동인구_수	FAG_30_FRITM_6_FLPOP_CO
+-- 391	여성연령대_30_토요일시간대_1_유동인구_수	FAG_30_SATTM_1_FLPOP_CO
+-- 392	여성연령대_30_토요일시간대_2_유동인구_수	FAG_30_SATTM_2_FLPOP_CO
+-- 393	여성연령대_30_토요일시간대_3_유동인구_수	FAG_30_SATTM_3_FLPOP_CO
+-- 394	여성연령대_30_토요일시간대_4_유동인구_수	FAG_30_SATTM_4_FLPOP_CO
+-- 395	여성연령대_30_토요일시간대_5_유동인구_수	FAG_30_SATTM_5_FLPOP_CO
+-- 396	여성연령대_30_토요일시간대_6_유동인구_수	FAG_30_SATTM_6_FLPOP_CO
+-- 397	여성연령대_30_일요일시간대_1_유동인구_수	FAG_30_SUNTM_1_FLPOP_CO
+-- 398	여성연령대_30_일요일시간대_2_유동인구_수	FAG_30_SUNTM_2_FLPOP_CO
+-- 399	여성연령대_30_일요일시간대_3_유동인구_수	FAG_30_SUNTM_3_FLPOP_CO
+-- 400	여성연령대_30_일요일시간대_4_유동인구_수	FAG_30_SUNTM_4_FLPOP_CO
+-- 401	여성연령대_30_일요일시간대_5_유동인구_수	FAG_30_SUNTM_5_FLPOP_CO
+-- 402	여성연령대_30_일요일시간대_6_유동인구_수	FAG_30_SUNTM_6_FLPOP_CO
+-- 403	여성연령대_40_월요일시간대_1_유동인구_수	FAG_40_MONTM_1_FLPOP_CO
+-- 404	여성연령대_40_월요일시간대_2_유동인구_수	FAG_40_MONTM_2_FLPOP_CO
+-- 405	여성연령대_40_월요일시간대_3_유동인구_수	FAG_40_MONTM_3_FLPOP_CO
+-- 406	여성연령대_40_월요일시간대_4_유동인구_수	FAG_40_MONTM_4_FLPOP_CO
+-- 407	여성연령대_40_월요일시간대_5_유동인구_수	FAG_40_MONTM_5_FLPOP_CO
+-- 408	여성연령대_40_월요일시간대_6_유동인구_수	FAG_40_MONTM_6_FLPOP_CO
+-- 409	여성연령대_40_화요일시간대_1_유동인구_수	FAG_40_TUETM_1_FLPOP_CO
+-- 410	여성연령대_40_화요일시간대_2_유동인구_수	FAG_40_TUETM_2_FLPOP_CO
+-- 411	여성연령대_40_화요일시간대_3_유동인구_수	FAG_40_TUETM_3_FLPOP_CO
+-- 412	여성연령대_40_화요일시간대_4_유동인구_수	FAG_40_TUETM_4_FLPOP_CO
+-- 413	여성연령대_40_화요일시간대_5_유동인구_수	FAG_40_TUETM_5_FLPOP_CO
+-- 414	여성연령대_40_화요일시간대_6_유동인구_수	FAG_40_TUETM_6_FLPOP_CO
+-- 415	여성연령대_40_수요일시간대_1_유동인구_수	FAG_40_WEDTM_1_FLPOP_CO
+-- 416	여성연령대_40_수요일시간대_2_유동인구_수	FAG_40_WEDTM_2_FLPOP_CO
+-- 417	여성연령대_40_수요일시간대_3_유동인구_수	FAG_40_WEDTM_3_FLPOP_CO
+-- 418	여성연령대_40_수요일시간대_4_유동인구_수	FAG_40_WEDTM_4_FLPOP_CO
+-- 419	여성연령대_40_수요일시간대_5_유동인구_수	FAG_40_WEDTM_5_FLPOP_CO
+-- 420	여성연령대_40_수요일시간대_6_유동인구_수	FAG_40_WEDTM_6_FLPOP_CO
+-- 421	여성연령대_40_목요일시간대_1_유동인구_수	FAG_40_THUTM_1_FLPOP_CO
+-- 422	여성연령대_40_목요일시간대_2_유동인구_수	FAG_40_THUTM_2_FLPOP_CO
+-- 423	여성연령대_40_목요일시간대_3_유동인구_수	FAG_40_THUTM_3_FLPOP_CO
+-- 424	여성연령대_40_목요일시간대_4_유동인구_수	FAG_40_THUTM_4_FLPOP_CO
+-- 425	여성연령대_40_목요일시간대_5_유동인구_수	FAG_40_THUTM_5_FLPOP_CO
+-- 426	여성연령대_40_목요일시간대_6_유동인구_수	FAG_40_THUTM_6_FLPOP_CO
+-- 427	여성연령대_40_금요일시간대_1_유동인구_수	FAG_40_FRITM_1_FLPOP_CO
+-- 428	여성연령대_40_금요일시간대_2_유동인구_수	FAG_40_FRITM_2_FLPOP_CO
+-- 429	여성연령대_40_금요일시간대_3_유동인구_수	FAG_40_FRITM_3_FLPOP_CO
+-- 430	여성연령대_40_금요일시간대_4_유동인구_수	FAG_40_FRITM_4_FLPOP_CO
+-- 431	여성연령대_40_금요일시간대_5_유동인구_수	FAG_40_FRITM_5_FLPOP_CO
+-- 432	여성연령대_40_금요일시간대_6_유동인구_수	FAG_40_FRITM_6_FLPOP_CO
+-- 433	여성연령대_40_토요일시간대_1_유동인구_수	FAG_40_SATTM_1_FLPOP_CO
+-- 434	여성연령대_40_토요일시간대_2_유동인구_수	FAG_40_SATTM_2_FLPOP_CO
+-- 435	여성연령대_40_토요일시간대_3_유동인구_수	FAG_40_SATTM_3_FLPOP_CO
+-- 436	여성연령대_40_토요일시간대_4_유동인구_수	FAG_40_SATTM_4_FLPOP_CO
+-- 437	여성연령대_40_토요일시간대_5_유동인구_수	FAG_40_SATTM_5_FLPOP_CO
+-- 438	여성연령대_40_토요일시간대_6_유동인구_수	FAG_40_SATTM_6_FLPOP_CO
+-- 439	여성연령대_40_일요일시간대_1_유동인구_수	FAG_40_SUNTM_1_FLPOP_CO
+-- 440	여성연령대_40_일요일시간대_2_유동인구_수	FAG_40_SUNTM_2_FLPOP_CO
+-- 441	여성연령대_40_일요일시간대_3_유동인구_수	FAG_40_SUNTM_3_FLPOP_CO
+-- 442	여성연령대_40_일요일시간대_4_유동인구_수	FAG_40_SUNTM_4_FLPOP_CO
+-- 443	여성연령대_40_일요일시간대_5_유동인구_수	FAG_40_SUNTM_5_FLPOP_CO
+-- 444	여성연령대_40_일요일시간대_6_유동인구_수	FAG_40_SUNTM_6_FLPOP_CO
+-- 445	여성연령대_50_월요일시간대_1_유동인구_수	FAG_50_MONTM_1_FLPOP_CO
+-- 446	여성연령대_50_월요일시간대_2_유동인구_수	FAG_50_MONTM_2_FLPOP_CO
+-- 447	여성연령대_50_월요일시간대_3_유동인구_수	FAG_50_MONTM_3_FLPOP_CO
+-- 448	여성연령대_50_월요일시간대_4_유동인구_수	FAG_50_MONTM_4_FLPOP_CO
+-- 449	여성연령대_50_월요일시간대_5_유동인구_수	FAG_50_MONTM_5_FLPOP_CO
+-- 450	여성연령대_50_월요일시간대_6_유동인구_수	FAG_50_MONTM_6_FLPOP_CO
+-- 451	여성연령대_50_화요일시간대_1_유동인구_수	FAG_50_TUETM_1_FLPOP_CO
+-- 452	여성연령대_50_화요일시간대_2_유동인구_수	FAG_50_TUETM_2_FLPOP_CO
+-- 453	여성연령대_50_화요일시간대_3_유동인구_수	FAG_50_TUETM_3_FLPOP_CO
+-- 454	여성연령대_50_화요일시간대_4_유동인구_수	FAG_50_TUETM_4_FLPOP_CO
+-- 455	여성연령대_50_화요일시간대_5_유동인구_수	FAG_50_TUETM_5_FLPOP_CO
+-- 456	여성연령대_50_화요일시간대_6_유동인구_수	FAG_50_TUETM_6_FLPOP_CO
+-- 457	여성연령대_50_수요일시간대_1_유동인구_수	FAG_50_WEDTM_1_FLPOP_CO
+-- 458	여성연령대_50_수요일시간대_2_유동인구_수	FAG_50_WEDTM_2_FLPOP_CO
+-- 459	여성연령대_50_수요일시간대_3_유동인구_수	FAG_50_WEDTM_3_FLPOP_CO
+-- 460	여성연령대_50_수요일시간대_4_유동인구_수	FAG_50_WEDTM_4_FLPOP_CO
+-- 461	여성연령대_50_수요일시간대_5_유동인구_수	FAG_50_WEDTM_5_FLPOP_CO
+-- 462	여성연령대_50_수요일시간대_6_유동인구_수	FAG_50_WEDTM_6_FLPOP_CO
+-- 463	여성연령대_50_목요일시간대_1_유동인구_수	FAG_50_THUTM_1_FLPOP_CO
+-- 464	여성연령대_50_목요일시간대_2_유동인구_수	FAG_50_THUTM_2_FLPOP_CO
+-- 465	여성연령대_50_목요일시간대_3_유동인구_수	FAG_50_THUTM_3_FLPOP_CO
+-- 466	여성연령대_50_목요일시간대_4_유동인구_수	FAG_50_THUTM_4_FLPOP_CO
+-- 467	여성연령대_50_목요일시간대_5_유동인구_수	FAG_50_THUTM_5_FLPOP_CO
+-- 468	여성연령대_50_목요일시간대_6_유동인구_수	FAG_50_THUTM_6_FLPOP_CO
+-- 469	여성연령대_50_금요일시간대_1_유동인구_수	FAG_50_FRITM_1_FLPOP_CO
+-- 470	여성연령대_50_금요일시간대_2_유동인구_수	FAG_50_FRITM_2_FLPOP_CO
+-- 471	여성연령대_50_금요일시간대_3_유동인구_수	FAG_50_FRITM_3_FLPOP_CO
+-- 472	여성연령대_50_금요일시간대_4_유동인구_수	FAG_50_FRITM_4_FLPOP_CO
+-- 473	여성연령대_50_금요일시간대_5_유동인구_수	FAG_50_FRITM_5_FLPOP_CO
+-- 474	여성연령대_50_금요일시간대_6_유동인구_수	FAG_50_FRITM_6_FLPOP_CO
+-- 475	여성연령대_50_토요일시간대_1_유동인구_수	FAG_50_SATTM_1_FLPOP_CO
+-- 476	여성연령대_50_토요일시간대_2_유동인구_수	FAG_50_SATTM_2_FLPOP_CO
+-- 477	여성연령대_50_토요일시간대_3_유동인구_수	FAG_50_SATTM_3_FLPOP_CO
+-- 478	여성연령대_50_토요일시간대_4_유동인구_수	FAG_50_SATTM_4_FLPOP_CO
+-- 479	여성연령대_50_토요일시간대_5_유동인구_수	FAG_50_SATTM_5_FLPOP_CO
+-- 480	여성연령대_50_토요일시간대_6_유동인구_수	FAG_50_SATTM_6_FLPOP_CO
+-- 481	여성연령대_50_일요일시간대_1_유동인구_수	FAG_50_SUNTM_1_FLPOP_CO
+-- 482	여성연령대_50_일요일시간대_2_유동인구_수	FAG_50_SUNTM_2_FLPOP_CO
+-- 483	여성연령대_50_일요일시간대_3_유동인구_수	FAG_50_SUNTM_3_FLPOP_CO
+-- 484	여성연령대_50_일요일시간대_4_유동인구_수	FAG_50_SUNTM_4_FLPOP_CO
+-- 485	여성연령대_50_일요일시간대_5_유동인구_수	FAG_50_SUNTM_5_FLPOP_CO
+-- 486	여성연령대_50_일요일시간대_6_유동인구_수	FAG_50_SUNTM_6_FLPOP_CO
+-- 487	여성연령대_60_이상_월요일시간대_1_유동인구_수	FAG_60_ABOVE_MONTM_1_FLPOP_CO
+-- 488	여성연령대_60_이상_월요일시간대_2_유동인구_수	FAG_60_ABOVE_MONTM_2_FLPOP_CO
+-- 489	여성연령대_60_이상_월요일시간대_3_유동인구_수	FAG_60_ABOVE_MONTM_3_FLPOP_CO
+-- 490	여성연령대_60_이상_월요일시간대_4_유동인구_수	FAG_60_ABOVE_MONTM_4_FLPOP_CO
+-- 491	여성연령대_60_이상_월요일시간대_5_유동인구_수	FAG_60_ABOVE_MONTM_5_FLPOP_CO
+-- 492	여성연령대_60_이상_월요일시간대_6_유동인구_수	FAG_60_ABOVE_MONTM_6_FLPOP_CO
+-- 493	여성연령대_60_이상_화요일시간대_1_유동인구_수	FAG_60_ABOVE_TUETM_1_FLPOP_CO
+-- 494	여성연령대_60_이상_화요일시간대_2_유동인구_수	FAG_60_ABOVE_TUETM_2_FLPOP_CO
+-- 495	여성연령대_60_이상_화요일시간대_3_유동인구_수	FAG_60_ABOVE_TUETM_3_FLPOP_CO
+-- 496	여성연령대_60_이상_화요일시간대_4_유동인구_수	FAG_60_ABOVE_TUETM_4_FLPOP_CO
+-- 497	여성연령대_60_이상_화요일시간대_5_유동인구_수	FAG_60_ABOVE_TUETM_5_FLPOP_CO
+-- 498	여성연령대_60_이상_화요일시간대_6_유동인구_수	FAG_60_ABOVE_TUETM_6_FLPOP_CO
+-- 499	여성연령대_60_이상_수요일시간대_1_유동인구_수	FAG_60_ABOVE_WEDTM_1_FLPOP_CO
+-- 500	여성연령대_60_이상_수요일시간대_2_유동인구_수	FAG_60_ABOVE_WEDTM_2_FLPOP_CO
+-- 501	여성연령대_60_이상_수요일시간대_3_유동인구_수	FAG_60_ABOVE_WEDTM_3_FLPOP_CO
+-- 502	여성연령대_60_이상_수요일시간대_4_유동인구_수	FAG_60_ABOVE_WEDTM_4_FLPOP_CO
+-- 503	여성연령대_60_이상_수요일시간대_5_유동인구_수	FAG_60_ABOVE_WEDTM_5_FLPOP_CO
+-- 504	여성연령대_60_이상_수요일시간대_6_유동인구_수	FAG_60_ABOVE_WEDTM_6_FLPOP_CO
+-- 505	여성연령대_60_이상_목요일시간대_1_유동인구_수	FAG_60_ABOVE_THUTM_1_FLPOP_CO
+-- 506	여성연령대_60_이상_목요일시간대_2_유동인구_수	FAG_60_ABOVE_THUTM_2_FLPOP_CO
+-- 507	여성연령대_60_이상_목요일시간대_3_유동인구_수	FAG_60_ABOVE_THUTM_3_FLPOP_CO
+-- 508	여성연령대_60_이상_목요일시간대_4_유동인구_수	FAG_60_ABOVE_THUTM_4_FLPOP_CO
+-- 509	여성연령대_60_이상_목요일시간대_5_유동인구_수	FAG_60_ABOVE_THUTM_5_FLPOP_CO
+-- 510	여성연령대_60_이상_목요일시간대_6_유동인구_수	FAG_60_ABOVE_THUTM_6_FLPOP_CO
+-- 511	여성연령대_60_이상_금요일시간대_1_유동인구_수	FAG_60_ABOVE_FRITM_1_FLPOP_CO
+-- 512	여성연령대_60_이상_금요일시간대_2_유동인구_수	FAG_60_ABOVE_FRITM_2_FLPOP_CO
+-- 513	여성연령대_60_이상_금요일시간대_3_유동인구_수	FAG_60_ABOVE_FRITM_3_FLPOP_CO
+-- 514	여성연령대_60_이상_금요일시간대_4_유동인구_수	FAG_60_ABOVE_FRITM_4_FLPOP_CO
+-- 515	여성연령대_60_이상_금요일시간대_5_유동인구_수	FAG_60_ABOVE_FRITM_5_FLPOP_CO
+-- 516	여성연령대_60_이상_금요일시간대_6_유동인구_수	FAG_60_ABOVE_FRITM_6_FLPOP_CO
+-- 517	여성연령대_60_이상_토요일시간대_1_유동인구_수	FAG_60_ABOVE_SATTM_1_FLPOP_CO
+-- 518	여성연령대_60_이상_토요일시간대_2_유동인구_수	FAG_60_ABOVE_SATTM_2_FLPOP_CO
+-- 519	여성연령대_60_이상_토요일시간대_3_유동인구_수	FAG_60_ABOVE_SATTM_3_FLPOP_CO
+-- 520	여성연령대_60_이상_토요일시간대_4_유동인구_수	FAG_60_ABOVE_SATTM_4_FLPOP_CO
+-- 521	여성연령대_60_이상_토요일시간대_5_유동인구_수	FAG_60_ABOVE_SATTM_5_FLPOP_CO
+-- 522	여성연령대_60_이상_토요일시간대_6_유동인구_수	FAG_60_ABOVE_SATTM_6_FLPOP_CO
+-- 523	여성연령대_60_이상_일요일시간대_1_유동인구_수	FAG_60_ABOVE_SUNTM_1_FLPOP_CO
+-- 524	여성연령대_60_이상_일요일시간대_2_유동인구_수	FAG_60_ABOVE_SUNTM_2_FLPOP_CO
+-- 525	여성연령대_60_이상_일요일시간대_3_유동인구_수	FAG_60_ABOVE_SUNTM_3_FLPOP_CO
+-- 526	여성연령대_60_이상_일요일시간대_4_유동인구_수	FAG_60_ABOVE_SUNTM_4_FLPOP_CO
+-- 527	여성연령대_60_이상_일요일시간대_5_유동인구_수	FAG_60_ABOVE_SUNTM_5_FLPOP_CO
+-- 528	여성연령대_60_이상_일요일시간대_6_유동인구_수	FAG_60_ABOVE_SUNTM_6_FLPOP_CO
+create table blck_flpop(
+  stdr_ym_cd String,
+  blck_cd String,
+  tot_flpop_co Double,
+  ml_flpop_co Double,
+  fml_flpop_co Double,
+  agrde_10_flpop_co Double,
+  agrde_20_flpop_co Double,
+  agrde_30_flpop_co Double,
+  agrde_40_flpop_co Double,
+  agrde_50_flpop_co Double,
+  agrde_60_above_flpop_co Double,
+  tmzon_1_flpop_co Double,
+  tmzon_2_flpop_co Double,
+  tmzon_3_flpop_co Double,
+  tmzon_4_flpop_co Double,
+  tmzon_5_flpop_co Double,
+  tmzon_6_flpop_co Double,
+  mon_flpop_co Double,
+  tues_flpop_co Double,
+  wed_flpop_co Double,
+  thur_flpop_co Double,
+  fri_flpop_co Double,
+  sat_flpop_co Double,
+  sun_flpop_co Double,
+  mag_10_montm_1_flpop_co Double,
+  mag_10_montm_2_flpop_co Double,
+  mag_10_montm_4_flpop_co Double,
+  mag_10_montm_5_flpop_co Double,
+  mag_10_montm_6_flpop_co Double,
+  mag_10_tuetm_1_flpop_co Double,
+  mag_10_tuetm_2_flpop_co Double,
+  mag_10_tuetm_3_flpop_co Double,
+  mag_10_tuetm_4_flpop_co Double,
+  mag_10_tuetm_5_flpop_co Double,
+  mag_10_tuetm_6_flpop_co Double,
+  mag_10_wedtm_1_flpop_co Double,
+  mag_10_wedtm_2_flpop_co Double,
+  mag_10_wedtm_3_flpop_co Double,
+  mag_10_wedtm_4_flpop_co Double,
+  mag_10_wedtm_5_flpop_co Double,
+  mag_10_wedtm_6_flpop_co Double,
+  mag_10_thutm_1_flpop_co Double,
+  mag_10_thutm_3_flpop_co Double,
+  mag_10_thutm_4_flpop_co Double,
+  mag_10_thutm_5_flpop_co Double,
+  mag_10_thutm_6_flpop_co Double,
+  mag_10_fritm_1_flpop_co Double,
+  mag_10_fritm_2_flpop_co Double,
+  mag_10_fritm_3_flpop_co Double,
+  mag_10_fritm_4_flpop_co Double,
+  mag_10_fritm_5_flpop_co Double,
+  mag_10_fritm_6_flpop_co Double,
+  mag_10_sattm_1_flpop_co Double,
+  mag_10_sattm_2_flpop_co Double,
+  mag_10_sattm_3_flpop_co Double,
+  mag_10_sattm_4_flpop_co Double,
+  mag_10_sattm_5_flpop_co Double,
+  mag_10_sattm_6_flpop_co Double,
+  mag_10_suntm_1_flpop_co Double,
+  mag_10_suntm_2_flpop_co Double,
+  mag_10_suntm_3_flpop_co Double,
+  mag_10_suntm_4_flpop_co Double,
+  mag_10_suntm_5_flpop_co Double,
+  mag_10_suntm_6_flpop_co Double,
+  mag_20_montm_1_flpop_co Double,
+  mag_20_montm_2_flpop_co Double,
+  mag_20_montm_3_flpop_co Double,
+  mag_20_montm_4_flpop_co Double,
+  mag_20_montm_5_flpop_co Double,
+  mag_20_montm_6_flpop_co Double,
+  mag_20_tuetm_1_flpop_co Double,
+  mag_20_tuetm_2_flpop_co Double,
+  mag_20_tuetm_3_flpop_co Double,
+  mag_20_tuetm_4_flpop_co Double,
+  mag_20_tuetm_5_flpop_co Double,
+  mag_20_tuetm_6_flpop_co Double,
+  mag_20_wedtm_1_flpop_co Double,
+  mag_20_wedtm_2_flpop_co Double,
+  mag_20_wedtm_3_flpop_co Double,
+  mag_20_wedtm_4_flpop_co Double,
+  mag_20_wedtm_5_flpop_co Double,
+  mag_20_wedtm_6_flpop_co Double,
+  mag_20_thutm_1_flpop_co Double,
+  mag_20_thutm_2_flpop_co Double,
+  mag_20_thutm_3_flpop_co Double,
+  mag_20_thutm_4_flpop_co Double,
+  mag_20_thutm_5_flpop_co Double,
+  mag_20_thutm_6_flpop_co Double,
+  mag_20_fritm_1_flpop_co Double,
+  mag_20_fritm_2_flpop_co Double,
+  mag_20_fritm_3_flpop_co Double,
+  mag_20_fritm_4_flpop_co Double,
+  mag_20_fritm_5_flpop_co Double,
+  mag_20_fritm_6_flpop_co Double,
+  mag_20_sattm_1_flpop_co Double,
+  mag_20_sattm_2_flpop_co Double,
+  mag_20_sattm_3_flpop_co Double,
+  mag_20_sattm_4_flpop_co Double,
+  mag_20_sattm_5_flpop_co Double,
+  mag_20_sattm_6_flpop_co Double,
+  mag_20_suntm_1_flpop_co Double,
+  mag_20_suntm_2_flpop_co Double,
+  mag_20_suntm_3_flpop_co Double,
+  mag_20_suntm_4_flpop_co Double,
+  mag_20_suntm_5_flpop_co Double,
+  mag_20_suntm_6_flpop_co Double,
+  mag_30_montm_1_flpop_co Double,
+  mag_30_montm_2_flpop_co Double,
+  mag_30_montm_3_flpop_co Double,
+  mag_30_montm_4_flpop_co Double,
+  mag_30_montm_5_flpop_co Double,
+  mag_30_montm_6_flpop_co Double,
+  mag_30_tuetm_1_flpop_co Double,
+  mag_30_tuetm_2_flpop_co Double,
+  mag_30_tuetm_3_flpop_co Double,
+  mag_30_tuetm_4_flpop_co Double,
+  mag_30_tuetm_5_flpop_co Double,
+  mag_30_tuetm_6_flpop_co Double,
+  mag_30_wedtm_1_flpop_co Double,
+  mag_30_wedtm_2_flpop_co Double,
+  mag_30_wedtm_3_flpop_co Double,
+  mag_30_wedtm_4_flpop_co Double,
+  mag_30_wedtm_5_flpop_co Double,
+  mag_30_wedtm_6_flpop_co Double,
+  mag_30_thutm_1_flpop_co Double,
+  mag_30_thutm_2_flpop_co Double,
+  mag_30_thutm_3_flpop_co Double,
+  mag_30_thutm_4_flpop_co Double,
+  mag_30_thutm_5_flpop_co Double,
+  mag_30_thutm_6_flpop_co Double,
+  mag_30_fritm_1_flpop_co Double,
+  mag_30_fritm_2_flpop_co Double,
+  mag_30_fritm_3_flpop_co Double,
+  mag_30_fritm_4_flpop_co Double,
+  mag_30_fritm_5_flpop_co Double,
+  mag_30_fritm_6_flpop_co Double,
+  mag_30_sattm_1_flpop_co Double,
+  mag_30_sattm_2_flpop_co Double,
+  mag_30_sattm_3_flpop_co Double,
+  mag_30_sattm_4_flpop_co Double,
+  mag_30_sattm_5_flpop_co Double,
+  mag_30_sattm_6_flpop_co Double,
+  mag_30_suntm_1_flpop_co Double,
+  mag_30_suntm_2_flpop_co Double,
+  mag_30_suntm_3_flpop_co Double,
+  mag_30_suntm_4_flpop_co Double,
+  mag_30_suntm_5_flpop_co Double,
+  mag_30_suntm_6_flpop_co Double,
+  mag_40_montm_1_flpop_co Double,
+  mag_40_montm_2_flpop_co Double,
+  mag_40_montm_3_flpop_co Double,
+  mag_40_montm_4_flpop_co Double,
+  mag_40_montm_5_flpop_co Double,
+  mag_40_montm_6_flpop_co Double,
+  mag_40_tuetm_1_flpop_co Double,
+  mag_40_tuetm_2_flpop_co Double,
+  mag_40_tuetm_3_flpop_co Double,
+  mag_40_tuetm_4_flpop_co Double,
+  mag_40_tuetm_5_flpop_co Double,
+  mag_40_tuetm_6_flpop_co Double,
+  mag_40_wedtm_1_flpop_co Double,
+  mag_40_wedtm_2_flpop_co Double,
+  mag_40_wedtm_3_flpop_co Double,
+  mag_40_wedtm_4_flpop_co Double,
+  mag_40_wedtm_5_flpop_co Double,
+  mag_40_wedtm_6_flpop_co Double,
+  mag_40_thutm_1_flpop_co Double,
+  mag_40_thutm_2_flpop_co Double,
+  mag_40_thutm_3_flpop_co Double,
+  mag_40_thutm_4_flpop_co Double,
+  mag_40_thutm_5_flpop_co Double,
+  mag_40_thutm_6_flpop_co Double,
+  mag_40_fritm_1_flpop_co Double,
+  mag_40_fritm_2_flpop_co Double,
+  mag_40_fritm_3_flpop_co Double,
+  mag_40_fritm_4_flpop_co Double,
+  mag_40_fritm_5_flpop_co Double,
+  mag_40_fritm_6_flpop_co Double,
+  mag_40_sattm_1_flpop_co Double,
+  mag_40_sattm_2_flpop_co Double,
+  mag_40_sattm_3_flpop_co Double,
+  mag_40_sattm_4_flpop_co Double,
+  mag_40_sattm_5_flpop_co Double,
+  mag_40_sattm_6_flpop_co Double,
+  mag_40_suntm_1_flpop_co Double,
+  mag_40_suntm_2_flpop_co Double,
+  mag_40_suntm_3_flpop_co Double,
+  mag_40_suntm_4_flpop_co Double,
+  mag_40_suntm_5_flpop_co Double,
+  mag_40_suntm_6_flpop_co Double,
+  mag_50_montm_1_flpop_co Double,
+  mag_50_montm_2_flpop_co Double,
+  mag_50_montm_3_flpop_co Double,
+  mag_50_montm_4_flpop_co Double,
+  mag_50_montm_5_flpop_co Double,
+  mag_50_montm_6_flpop_co Double,
+  mag_50_tuetm_1_flpop_co Double,
+  mag_50_tuetm_2_flpop_co Double,
+  mag_50_tuetm_3_flpop_co Double,
+  mag_50_tuetm_4_flpop_co Double,
+  mag_50_tuetm_5_flpop_co Double,
+  mag_50_tuetm_6_flpop_co Double,
+  mag_50_wedtm_1_flpop_co Double,
+  mag_50_wedtm_2_flpop_co Double,
+  mag_50_wedtm_3_flpop_co Double,
+  mag_50_wedtm_4_flpop_co Double,
+  mag_50_wedtm_5_flpop_co Double,
+  mag_50_wedtm_6_flpop_co Double,
+  mag_50_thutm_1_flpop_co Double,
+  mag_50_thutm_2_flpop_co Double,
+  mag_50_thutm_3_flpop_co Double,
+  mag_50_thutm_4_flpop_co Double,
+  mag_50_thutm_5_flpop_co Double,
+  mag_50_thutm_6_flpop_co Double,
+  mag_50_fritm_1_flpop_co Double,
+  mag_50_fritm_2_flpop_co Double,
+  mag_50_fritm_3_flpop_co Double,
+  mag_50_fritm_4_flpop_co Double,
+  mag_50_fritm_5_flpop_co Double,
+  mag_50_fritm_6_flpop_co Double,
+  mag_50_sattm_1_flpop_co Double,
+  mag_50_sattm_2_flpop_co Double,
+  mag_50_sattm_3_flpop_co Double,
+  mag_50_sattm_4_flpop_co Double,
+  mag_50_sattm_5_flpop_co Double,
+  mag_50_sattm_6_flpop_co Double,
+  mag_50_suntm_1_flpop_co Double,
+  mag_50_suntm_2_flpop_co Double,
+  mag_50_suntm_3_flpop_co Double,
+  mag_50_suntm_4_flpop_co Double,
+  mag_50_suntm_5_flpop_co Double,
+  mag_50_suntm_6_flpop_co Double,
+  mag_60_above_montm_1_flpop_co Double,
+  mag_60_above_montm_2_flpop_co Double,
+  mag_60_above_montm_3_flpop_co Double,
+  mag_60_above_montm_4_flpop_co Double,
+  mag_60_above_montm_5_flpop_co Double,
+  mag_60_above_montm_6_flpop_co Double,
+  mag_60_above_tuetm_1_flpop_co Double,
+  mag_60_above_tuetm_2_flpop_co Double,
+  mag_60_above_tuetm_3_flpop_co Double,
+  mag_60_above_tuetm_4_flpop_co Double,
+  mag_60_above_tuetm_5_flpop_co Double,
+  mag_60_above_tuetm_6_flpop_co Double,
+  mag_60_above_wedtm_1_flpop_co Double,
+  mag_60_above_wedtm_2_flpop_co Double,
+  mag_60_above_wedtm_3_flpop_co Double,
+  mag_60_above_wedtm_4_flpop_co Double,
+  mag_60_above_wedtm_5_flpop_co Double,
+  mag_60_above_wedtm_6_flpop_co Double,
+  mag_60_above_thutm_1_flpop_co Double,
+  mag_60_above_thutm_2_flpop_co Double,
+  mag_60_above_thutm_3_flpop_co Double,
+  mag_60_above_thutm_4_flpop_co Double,
+  mag_60_above_thutm_5_flpop_co Double,
+  mag_60_above_thutm_6_flpop_co Double,
+  mag_60_above_fritm_1_flpop_co Double,
+  mag_60_above_fritm_2_flpop_co Double,
+  mag_60_above_fritm_3_flpop_co Double,
+  mag_60_above_fritm_4_flpop_co Double,
+  mag_60_above_fritm_5_flpop_co Double,
+  mag_60_above_fritm_6_flpop_co Double,
+  mag_60_above_sattm_1_flpop_co Double,
+  mag_60_above_sattm_2_flpop_co Double,
+  mag_60_above_sattm_3_flpop_co Double,
+  mag_60_above_sattm_4_flpop_co Double,
+  mag_60_above_sattm_5_flpop_co Double,
+  mag_60_above_sattm_6_flpop_co Double,
+  mag_60_above_suntm_1_flpop_co Double,
+  mag_60_above_suntm_2_flpop_co Double,
+  mag_60_above_suntm_3_flpop_co Double,
+  mag_60_above_suntm_4_flpop_co Double,
+  mag_60_above_suntm_5_flpop_co Double,
+  mag_60_above_suntm_6_flpop_co Double,
+  fag_10_montm_1_flpop_co Double,
+  fag_10_montm_2_flpop_co Double,
+  fag_10_montm_3_flpop_co Double,
+  fag_10_montm_4_flpop_co Double,
+  fag_10_montm_5_flpop_co Double,
+  fag_10_montm_6_flpop_co Double,
+  fag_10_tuetm_1_flpop_co Double,
+  fag_10_tuetm_2_flpop_co Double,
+  fag_10_tuetm_3_flpop_co Double,
+  fag_10_tuetm_4_flpop_co Double,
+  fag_10_tuetm_5_flpop_co Double,
+  fag_10_tuetm_6_flpop_co Double,
+  fag_10_wedtm_1_flpop_co Double,
+  fag_10_wedtm_2_flpop_co Double,
+  fag_10_wedtm_3_flpop_co Double,
+  fag_10_wedtm_4_flpop_co Double,
+  fag_10_wedtm_5_flpop_co Double,
+  fag_10_wedtm_6_flpop_co Double,
+  fag_10_thutm_1_flpop_co Double,
+  fag_10_thutm_2_flpop_co Double,
+  fag_10_thutm_3_flpop_co Double,
+  fag_10_thutm_4_flpop_co Double,
+  fag_10_thutm_5_flpop_co Double,
+  fag_10_thutm_6_flpop_co Double,
+  fag_10_fritm_1_flpop_co Double,
+  fag_10_fritm_2_flpop_co Double,
+  fag_10_fritm_3_flpop_co Double,
+  fag_10_fritm_4_flpop_co Double,
+  fag_10_fritm_5_flpop_co Double,
+  fag_10_fritm_6_flpop_co Double,
+  fag_10_sattm_1_flpop_co Double,
+  fag_10_sattm_2_flpop_co Double,
+  fag_10_sattm_3_flpop_co Double,
+  fag_10_sattm_4_flpop_co Double,
+  fag_10_sattm_5_flpop_co Double,
+  fag_10_sattm_6_flpop_co Double,
+  fag_10_suntm_1_flpop_co Double,
+  fag_10_suntm_2_flpop_co Double,
+  fag_10_suntm_3_flpop_co Double,
+  fag_10_suntm_4_flpop_co Double,
+  fag_10_suntm_5_flpop_co Double,
+  fag_10_suntm_6_flpop_co Double,
+  fag_20_montm_1_flpop_co Double,
+  fag_20_montm_2_flpop_co Double,
+  fag_20_montm_3_flpop_co Double,
+  fag_20_montm_4_flpop_co Double,
+  fag_20_montm_5_flpop_co Double,
+  fag_20_montm_6_flpop_co Double,
+  fag_20_tuetm_1_flpop_co Double,
+  fag_20_tuetm_2_flpop_co Double,
+  fag_20_tuetm_3_flpop_co Double,
+  fag_20_tuetm_4_flpop_co Double,
+  fag_20_tuetm_5_flpop_co Double,
+  fag_20_tuetm_6_flpop_co Double,
+  fag_20_wedtm_1_flpop_co Double,
+  fag_20_wedtm_2_flpop_co Double,
+  fag_20_wedtm_3_flpop_co Double,
+  fag_20_wedtm_4_flpop_co Double,
+  fag_20_wedtm_5_flpop_co Double,
+  fag_20_wedtm_6_flpop_co Double,
+  fag_20_thutm_1_flpop_co Double,
+  fag_20_thutm_2_flpop_co Double,
+  fag_20_thutm_3_flpop_co Double,
+  fag_20_thutm_4_flpop_co Double,
+  fag_20_thutm_5_flpop_co Double,
+  fag_20_thutm_6_flpop_co Double,
+  fag_20_fritm_1_flpop_co Double,
+  fag_20_fritm_2_flpop_co Double,
+  fag_20_fritm_3_flpop_co Double,
+  fag_20_fritm_4_flpop_co Double,
+  fag_20_fritm_5_flpop_co Double,
+  fag_20_fritm_6_flpop_co Double,
+  fag_20_sattm_1_flpop_co Double,
+  fag_20_sattm_2_flpop_co Double,
+  fag_20_sattm_3_flpop_co Double,
+  fag_20_sattm_4_flpop_co Double,
+  fag_20_sattm_5_flpop_co Double,
+  fag_20_sattm_6_flpop_co Double,
+  fag_20_suntm_1_flpop_co Double,
+  fag_20_suntm_2_flpop_co Double,
+  fag_20_suntm_3_flpop_co Double,
+  fag_20_suntm_4_flpop_co Double,
+  fag_20_suntm_5_flpop_co Double,
+  fag_20_suntm_6_flpop_co Double,
+  fag_30_montm_1_flpop_co Double,
+  fag_30_montm_2_flpop_co Double,
+  fag_30_montm_3_flpop_co Double,
+  fag_30_montm_4_flpop_co Double,
+  fag_30_montm_5_flpop_co Double,
+  fag_30_montm_6_flpop_co Double,
+  fag_30_tuetm_1_flpop_co Double,
+  fag_30_tuetm_2_flpop_co Double,
+  fag_30_tuetm_3_flpop_co Double,
+  fag_30_tuetm_4_flpop_co Double,
+  fag_30_tuetm_5_flpop_co Double,
+  fag_30_tuetm_6_flpop_co Double,
+  fag_30_wedtm_1_flpop_co Double,
+  fag_30_wedtm_2_flpop_co Double,
+  fag_30_wedtm_3_flpop_co Double,
+  fag_30_wedtm_4_flpop_co Double,
+  fag_30_wedtm_5_flpop_co Double,
+  fag_30_wedtm_6_flpop_co Double,
+  fag_30_thutm_1_flpop_co Double,
+  fag_30_thutm_2_flpop_co Double,
+  fag_30_thutm_3_flpop_co Double,
+  fag_30_thutm_4_flpop_co Double,
+  fag_30_thutm_5_flpop_co Double,
+  fag_30_thutm_6_flpop_co Double,
+  fag_30_fritm_1_flpop_co Double,
+  fag_30_fritm_2_flpop_co Double,
+  fag_30_fritm_3_flpop_co Double,
+  fag_30_fritm_4_flpop_co Double,
+  fag_30_fritm_5_flpop_co Double,
+  fag_30_fritm_6_flpop_co Double,
+  fag_30_sattm_1_flpop_co Double,
+  fag_30_sattm_2_flpop_co Double,
+  fag_30_sattm_3_flpop_co Double,
+  fag_30_sattm_4_flpop_co Double,
+  fag_30_sattm_5_flpop_co Double,
+  fag_30_sattm_6_flpop_co Double,
+  fag_30_suntm_1_flpop_co Double,
+  fag_30_suntm_2_flpop_co Double,
+  fag_30_suntm_3_flpop_co Double,
+  fag_30_suntm_4_flpop_co Double,
+  fag_30_suntm_5_flpop_co Double,
+  fag_30_suntm_6_flpop_co Double,
+  fag_40_montm_1_flpop_co Double,
+  fag_40_montm_2_flpop_co Double,
+  fag_40_montm_3_flpop_co Double,
+  fag_40_montm_4_flpop_co Double,
+  fag_40_montm_5_flpop_co Double,
+  fag_40_montm_6_flpop_co Double,
+  fag_40_tuetm_1_flpop_co Double,
+  fag_40_tuetm_2_flpop_co Double,
+  fag_40_tuetm_3_flpop_co Double,
+  fag_40_tuetm_4_flpop_co Double,
+  fag_40_tuetm_5_flpop_co Double,
+  fag_40_tuetm_6_flpop_co Double,
+  fag_40_wedtm_1_flpop_co Double,
+  fag_40_wedtm_2_flpop_co Double,
+  fag_40_wedtm_3_flpop_co Double,
+  fag_40_wedtm_4_flpop_co Double,
+  fag_40_wedtm_5_flpop_co Double,
+  fag_40_wedtm_6_flpop_co Double,
+  fag_40_thutm_1_flpop_co Double,
+  fag_40_thutm_2_flpop_co Double,
+  fag_40_thutm_3_flpop_co Double,
+  fag_40_thutm_4_flpop_co Double,
+  fag_40_thutm_5_flpop_co Double,
+  fag_40_thutm_6_flpop_co Double,
+  fag_40_fritm_1_flpop_co Double,
+  fag_40_fritm_2_flpop_co Double,
+  fag_40_fritm_3_flpop_co Double,
+  fag_40_fritm_4_flpop_co Double,
+  fag_40_fritm_5_flpop_co Double,
+  fag_40_fritm_6_flpop_co Double,
+  fag_40_sattm_1_flpop_co Double,
+  fag_40_sattm_2_flpop_co Double,
+  fag_40_sattm_3_flpop_co Double,
+  fag_40_sattm_4_flpop_co Double,
+  fag_40_sattm_5_flpop_co Double,
+  fag_40_sattm_6_flpop_co Double,
+  fag_40_suntm_1_flpop_co Double,
+  fag_40_suntm_2_flpop_co Double,
+  fag_40_suntm_3_flpop_co Double,
+  fag_40_suntm_4_flpop_co Double,
+  fag_40_suntm_5_flpop_co Double,
+  fag_40_suntm_6_flpop_co Double,
+  fag_50_montm_1_flpop_co Double,
+  fag_50_montm_2_flpop_co Double,
+  fag_50_montm_3_flpop_co Double,
+  fag_50_montm_4_flpop_co Double,
+  fag_50_montm_5_flpop_co Double,
+  fag_50_montm_6_flpop_co Double,
+  fag_50_tuetm_1_flpop_co Double,
+  fag_50_tuetm_2_flpop_co Double,
+  fag_50_tuetm_3_flpop_co Double,
+  fag_50_tuetm_4_flpop_co Double,
+  fag_50_tuetm_5_flpop_co Double,
+  fag_50_tuetm_6_flpop_co Double,
+  fag_50_wedtm_1_flpop_co Double,
+  fag_50_wedtm_2_flpop_co Double,
+  fag_50_wedtm_3_flpop_co Double,
+  fag_50_wedtm_4_flpop_co Double,
+  fag_50_wedtm_5_flpop_co Double,
+  fag_50_wedtm_6_flpop_co Double,
+  fag_50_thutm_1_flpop_co Double,
+  fag_50_thutm_2_flpop_co Double,
+  fag_50_thutm_3_flpop_co Double,
+  fag_50_thutm_4_flpop_co Double,
+  fag_50_thutm_5_flpop_co Double,
+  fag_50_thutm_6_flpop_co Double,
+  fag_50_fritm_1_flpop_co Double,
+  fag_50_fritm_2_flpop_co Double,
+  fag_50_fritm_3_flpop_co Double,
+  fag_50_fritm_4_flpop_co Double,
+  fag_50_fritm_5_flpop_co Double,
+  fag_50_fritm_6_flpop_co Double,
+  fag_50_sattm_1_flpop_co Double,
+  fag_50_sattm_2_flpop_co Double,
+  fag_50_sattm_3_flpop_co Double,
+  fag_50_sattm_4_flpop_co Double,
+  fag_50_sattm_5_flpop_co Double,
+  fag_50_sattm_6_flpop_co Double,
+  fag_50_suntm_1_flpop_co Double,
+  fag_50_suntm_2_flpop_co Double,
+  fag_50_suntm_3_flpop_co Double,
+  fag_50_suntm_4_flpop_co Double,
+  fag_50_suntm_5_flpop_co Double,
+  fag_50_suntm_6_flpop_co Double,
+  fag_60_above_montm_1_flpop_co Double,
+  fag_60_above_montm_2_flpop_co Double,
+  fag_60_above_montm_3_flpop_co Double,
+  fag_60_above_montm_4_flpop_co Double,
+  fag_60_above_montm_5_flpop_co Double,
+  fag_60_above_montm_6_flpop_co Double,
+  fag_60_above_tuetm_1_flpop_co Double,
+  fag_60_above_tuetm_2_flpop_co Double,
+  fag_60_above_tuetm_3_flpop_co Double,
+  fag_60_above_tuetm_4_flpop_co Double,
+  fag_60_above_tuetm_5_flpop_co Double,
+  fag_60_above_tuetm_6_flpop_co Double,
+  fag_60_above_wedtm_1_flpop_co Double,
+  fag_60_above_wedtm_2_flpop_co Double,
+  fag_60_above_wedtm_3_flpop_co Double,
+  fag_60_above_wedtm_4_flpop_co Double,
+  fag_60_above_wedtm_5_flpop_co Double,
+  fag_60_above_wedtm_6_flpop_co Double,
+  fag_60_above_thutm_1_flpop_co Double,
+  fag_60_above_thutm_2_flpop_co Double,
+  fag_60_above_thutm_3_flpop_co Double,
+  fag_60_above_thutm_4_flpop_co Double,
+  fag_60_above_thutm_5_flpop_co Double,
+  fag_60_above_thutm_6_flpop_co Double,
+  fag_60_above_fritm_1_flpop_co Double,
+  fag_60_above_fritm_2_flpop_co Double,
+  fag_60_above_fritm_3_flpop_co Double,
+  fag_60_above_fritm_4_flpop_co Double,
+  fag_60_above_fritm_5_flpop_co Double,
+  fag_60_above_fritm_6_flpop_co Double,
+  fag_60_above_sattm_1_flpop_co Double,
+  fag_60_above_sattm_2_flpop_co Double,
+  fag_60_above_sattm_3_flpop_co Double,
+  fag_60_above_sattm_4_flpop_co Double,
+  fag_60_above_sattm_5_flpop_co Double,
+  fag_60_above_sattm_6_flpop_co Double,
+  fag_60_above_suntm_1_flpop_co Double,
+  fag_60_above_suntm_2_flpop_co Double,
+  fag_60_above_suntm_3_flpop_co Double,
+  fag_60_above_suntm_4_flpop_co Double,
+  fag_60_above_suntm_5_flpop_co Double,
+  fag_60_above_suntm_6_flpop_co Double)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 9. 행정동집계_임대료 ADSTRD_RNTCHRG
+-- 1	기준_년월_코드	STDR_YM_CD
+-- 2	행정동_코드	ADSTRD_CD
+-- 3	층_구분_코드	FLOOR_SE_CD
+-- 4	급지_코드	LND_GRAD_CD
+-- 5	월_임대료	MT_RNTCHRG
+-- 6	보증금	GTN
+-- 7	환산_임대료	CNVRSN_RNTCHRG
+create table adstrd_rntchrg(
+  stdr_ym_cd String,
+  adstrd_cd String,
+  floor_se_cd String,
+  lnd_grad_cd String,
+  mt_rntchrg Double,
+  gtn Double,
+  cnvrsn_rntchrg Double)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 10. 주거인구 RESDNG_POPLTN
+-- 1	기준_년월	STDR_YM
+-- 2	상주_인구_ID	RESDNG_POPLTN_ID
+-- 3	지번	HOUS_ID
+-- 4	엑스좌표_값	XCNTS_VALUE
+-- 5	와이좌표_값	YDNTS_VALUE
+-- 6	주거_유형_코드	RESIDE_TY_CD
+-- 7	총_세대_수	TOT_HSHLD_CO
+-- 8	총_인구_수	TOT_POPLTN_CO
+-- 9	0세부터4세_인구_수	AGE_0_4_POPLTN_CO
+-- 10	5세부터9세_인구_수	AGE_5_9_POPLTN_CO
+-- 11	10세부터14세_인구_수	AGE_10_14_POPLTN_CO
+-- 12	15세부터19세_인구_수	AGE_15_19_POPLTN_CO
+-- 13	20세부터24세_인구_수	AGE_20_24_POPLTN_CO
+-- 14	25세부터29세_인구_수	AGE_25_29_POPLTN_CO
+-- 15	30세부터34세_인구_수	AGE_30_34_POPLTN_CO
+-- 16	35세부터39세_인구_수	AGE_35_39_POPLTN_CO
+-- 17	40세부터44세_인구_수	AGE_40_44_POPLTN_CO
+-- 18	45세부터49세_인구_수	AGE_45_49_POPLTN_CO
+-- 19	50세부터54세_인구_수	AGE_50_54_POPLTN_CO
+-- 20	55세부터59세_인구_수	AGE_55_59_POPLTN_CO
+-- 21	60세부터64세_인구_수	AGE_60_64_POPLTN_CO
+-- 22	65세부터69세_인구_수	AGE_65_69_POPLTN_CO
+-- 23	70세부터74세_인구_수	AGE_70_74_POPLTN_CO
+-- 24	75세부터79세_인구_수	AGE_75_79_POPLTN_CO
+-- 25	80세이상_인구_수	ABOVE_80_POPLTN_CO
+-- 26	남성_총_인구_수	ML_TOT_POPLTN_CO
+-- 27	0세부터4세_남성_인구_수	AGE_0_4_ML_POPLTN_CO
+-- 28	5세부터9세_남성_인구_수	AGE_5_9_ML_POPLTN_CO
+-- 29	10세부터14세_남성_인구_수	AGE_10_14_ML_POPLTN_CO
+-- 30	15세부터19세_남성_인구_수	AGE_15_19_ML_POPLTN_CO
+-- 31	20세부터24세_남성_인구_수	AGE_20_24_ML_POPLTN_CO
+-- 32	25세부터29세_남성_인구_수	AGE_25_29_ML_POPLTN_CO
+-- 33	30세부터34세_남성_인구_수	AGE_30_34_ML_POPLTN_CO
+-- 34	35세부터39세_남성_인구_수	AGE_35_39_ML_POPLTN_CO
+-- 35	40세부터44세_남성_인구_수	AGE_40_44_ML_POPLTN_CO
+-- 36	45세부터49세_남성_인구_수	AGE_45_49_ML_POPLTN_CO
+-- 37	50세부터54세_남성_인구_수	AGE_50_54_ML_POPLTN_CO
+-- 38	55세부터59세_남성_인구_수	AGE_55_59_ML_POPLTN_CO
+-- 39	60세부터64세_남성_인구_수	AGE_60_64_ML_POPLTN_CO
+-- 40	65세부터69세_남성_인구_수	AGE_65_69_ML_POPLTN_CO
+-- 41	70세부터74세_남성_인구_수	AGE_70_74_ML_POPLTN_CO
+-- 42	75세부터79세_남성_인구_수	AGE_75_79_ML_POPLTN_CO
+-- 43	80세이상_남성_인구_수	ABOVE_80_ML_POPLTN_CO
+-- 44	여성_총_인구_수	FML_TOT_POPLTN_CO
+-- 45	0세부터4세_여성_인구_수	AGE_0_4_FML_POPLTN_CO
+-- 46	5세부터9세_여성_인구_수	AGE_5_9_FML_POPLTN_CO
+-- 47	10세부터14세_여성_인구_수	AGE_10_14_FML_POPLTN_CO
+-- 48	15세부터19세_여성_인구_수	AGE_15_19_FML_POPLTN_CO
+-- 49	20세부터24세_여성_인구_수	AGE_20_24_FML_POPLTN_CO
+-- 50	25세부터29세_여성_인구_수	AGE_25_29_FML_POPLTN_CO
+-- 51	30세부터34세_여성_인구_수	AGE_30_34_FML_POPLTN_CO
+-- 52	35세부터39세_여성_인구_수	AGE_35_39_FML_POPLTN_CO
+-- 53	40세부터44세_여성_인구_수	AGE_40_44_FML_POPLTN_CO
+-- 54	45세부터49세_여성_인구_수	AGE_45_49_FML_POPLTN_CO
+-- 55	50세부터54세_여성_인구_수	AGE_50_54_FML_POPLTN_CO
+-- 56	55세부터59세_여성_인구_수	AGE_55_59_FML_POPLTN_CO
+-- 57	60세부터64세_여성_인구_수	AGE_60_64_FML_POPLTN_CO
+-- 58	65세부터69세_여성_인구_수	AGE_65_69_FML_POPLTN_CO
+-- 59	70세부터74세_여성_인구_수	AGE_70_74_FML_POPLTN_CO
+-- 60	75세부터79세_여성_인구_수	AGE_75_79_FML_POPLTN_CO
+-- 61	80세이상_여성_인구_수	ABOVE_80_FML_POPLTN_CO
+-- 62	행정동_코드	ADSTRD_CD
+-- 63	블록_코드	BLCK_CD
+-- 64	아파트_동_코드	APT_APTCMPL_CD
+-- 65	DW_등록_일시	DW_REGIST_DT
+create table resdng_popltn(
+  stdr_ym String,
+  resdng_popltn_id String,
+  hous_id String,
+  xcnts_value Double,
+  ydnts_value Double,
+  reside_ty_cd String,
+  tot_hshld_co Double,
+  tot_popltn_co Double,
+  age_0_4_popltn_co Double,
+  age_5_9_popltn_co Double,
+  age_10_14_popltn_co Double,
+  age_15_19_popltn_co Double,
+  age_20_24_popltn_co Double,
+  age_25_29_popltn_co Double,
+  age_30_34_popltn_co Double,
+  age_35_39_popltn_co Double,
+  age_40_44_popltn_co Double,
+  age_45_49_popltn_co Double,
+  age_50_54_popltn_co Double,
+  age_55_59_popltn_co Double,
+  age_60_64_popltn_co Double,
+  age_65_69_popltn_co Double,
+  age_70_74_popltn_co Double,
+  age_75_79_popltn_co Double,
+  above_80_popltn_co Double,
+  ml_tot_popltn_co Double,
+  age_0_4_ml_popltn_co Double,
+  age_5_9_ml_popltn_co Double,
+  age_10_14_ml_popltn_co Double,
+  age_15_19_ml_popltn_co Double,
+  age_20_24_ml_popltn_co Double,
+  age_25_29_ml_popltn_co Double,
+  age_30_34_ml_popltn_co Double,
+  age_35_39_ml_popltn_co Double,
+  age_40_44_ml_popltn_co Double,
+  age_45_49_ml_popltn_co Double,
+  age_50_54_ml_popltn_co Double,
+  age_55_59_ml_popltn_co Double,
+  age_60_64_ml_popltn_co Double,
+  age_65_69_ml_popltn_co Double,
+  age_70_74_ml_popltn_co Double,
+  age_75_79_ml_popltn_co Double,
+  above_80_ml_popltn_co Double,
+  fml_tot_popltn_co Double,
+  age_0_4_fml_popltn_co Double,
+  age_5_9_fml_popltn_co Double,
+  age_10_14_fml_popltn_co Double,
+  age_15_19_fml_popltn_co Double,
+  age_20_24_fml_popltn_co Double,
+  age_25_29_fml_popltn_co Double,
+  age_30_34_fml_popltn_co Double,
+  age_35_39_fml_popltn_co Double,
+  age_40_44_fml_popltn_co Double,
+  age_45_49_fml_popltn_co Double,
+  age_50_54_fml_popltn_co Double,
+  age_55_59_fml_popltn_co Double,
+  age_60_64_fml_popltn_co Double,
+  age_65_69_fml_popltn_co Double,
+  age_70_74_fml_popltn_co Double,
+  age_75_79_fml_popltn_co Double,
+  above_80_fml_popltn_co Double,
+  adstrd_cd String,
+  blck_cd String,
+  apt_aptcmpl_cd String,
+  dw_regist_dt Date)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 11. 직장인구 WRC_POPLTN
+-- 1	기준_년월	STDR_YM
+-- 2	단위_코드_1	UNIT_CD_1
+-- 3	단위_코드_2	UNIT_CD_2
+-- 4	CELL_블록_구분_코드	CELL_BLCK_SE_CD
+-- 5	총_직장_인구_수	TOT_WRC_POPLTN_CO
+-- 6	남성_직장_인구_수	ML_WRC_POPLTN_CO
+-- 7	여성_직장_인구_수	FML_WRC_POPLTN_CO
+-- 8	연령대_10_직장_인구_수	AGRDE_10_WRC_POPLTN_CO
+-- 9	연령대_20_직장_인구_수	AGRDE_20_WRC_POPLTN_CO
+-- 10	연령대_30_직장_인구_수	AGRDE_30_WRC_POPLTN_CO
+-- 11	연령대_40_직장_인구_수	AGRDE_40_WRC_POPLTN_CO
+-- 12	연령대_50_직장_인구_수	AGRDE_50_WRC_POPLTN_CO
+-- 13	연령대_60_이상_직장_인구_수	AGRDE_60_ABOVE_POPLTN_CO
+-- 14	연령대_10_남성_직장_인구_수	AGRDE_10_ML_WRC_POPLTN_CO
+-- 15	연령대_20_남성_직장_인구_수	AGRDE_20_ML_WRC_POPLTN_CO
+-- 16	연령대_30_남성_직장_인구_수	AGRDE_30_ML_WRC_POPLTN_CO
+-- 17	연령대_40_남성_직장_인구_수	AGRDE_40_ML_WRC_POPLTN_CO
+-- 18	연령대_50_남성_직장_인구_수	AGRDE_50_ML_WRC_POPLTN_CO
+-- 19	연령대_60_이상_남성_직장_인구_수	AGRDE_60_ML_ABOVE_POPLTN_CO
+-- 20	연령대_10_여성_직장_인구_수	AGRDE_10_FML_WRC_POPLTN_CO
+-- 21	연령대_20_여성_직장_인구_수	AGRDE_20_FML_WRC_POPLTN_CO
+-- 22	연령대_30_여성_직장_인구_수	AGRDE_30_FML_WRC_POPLTN_CO
+-- 23	연령대_40_여성_직장_인구_수	AGRDE_40_FML_WRC_POPLTN_CO
+-- 24	연령대_50_여성_직장_인구_수	AGRDE_50_FML_WRC_POPLTN_CO
+-- 25	연령대_60_이상_여성_직장_인구_수	AGRDE_60_FML_ABOVE_POPLTN_CO
+-- 26	DW_등록_일시	DW_REGIST_DT
+create table wrc_popltn(
+  stdr_ym String,
+  unit_cd_1 String,
+  unit_cd_2 String,
+  cell_blck_se_cd String,
+  tot_wrc_popltn_co Double,
+  ml_wrc_popltn_co Double,
+  fml_wrc_popltn_co Double,
+  agrde_10_wrc_popltn_co Double,
+  agrde_20_wrc_popltn_co Double,
+  agrde_30_wrc_popltn_co Double,
+  agrde_40_wrc_popltn_co Double,
+  agrde_50_wrc_popltn_co Double,
+  agrde_60_above_popltn_co Double,
+  agrde_10_ml_wrc_popltn_co Double,
+  agrde_20_ml_wrc_popltn_co Double,
+  agrde_30_ml_wrc_popltn_co Double,
+  agrde_40_ml_wrc_popltn_co Double,
+  agrde_50_ml_wrc_popltn_co Double,
+  agrde_60_ml_above_popltn_co Double,
+  agrde_10_fml_wrc_popltn_co Double,
+  agrde_20_fml_wrc_popltn_co Double,
+  agrde_30_fml_wrc_popltn_co Double,
+  agrde_40_fml_wrc_popltn_co Double,
+  agrde_50_fml_wrc_popltn_co Double,
+  agrde_60_fml_above_popltn_co Double,
+  dw_regist_dt Date)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 12. 가구소득 NEW_HUSCOM
+-- 1	기준_년월_코드	STDR_YM_CD
+-- 2	블록_코드	BLCK_CD
+-- 3	시군구_코드	SIGNGU_CD
+-- 4	행정동_코드	ADSTRD_CD
+-- 5	상권_구분_코드	TRDAR_SE_CD
+-- 6	상권_코드	TRDAR_CD
+-- 7	총 인구수	ALL_CALC_POP
+-- 8	남성_인구수	ML_CALC_POP
+-- 9	여성_인구수	FML_CALC_POP
+-- 10	총_가구소득액	ALL_HCOM_AMT
+-- 11	남성_가구소득액	ML_HCOM_AMT
+-- 12	여성_가구소득액	FML_HCOM_AMT
+create table new_huscom(
+  stdr_ym_cd String,
+  blck_cd String,
+  signgu_cd String,
+  adstrd_cd String,
+  trdar_se_cd String,
+  trdar_cd String,
+  all_calc_pop Double,
+  ml_calc_pop Double,
+  fml_calc_pop Double,
+  all_hcom_amt Double,
+  ml_hcom_amt Double,
+  fml_hcom_amt Double)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 13. 아파트단지정보 APT_HSMP_INFO
+-- 1	아파트_단지_코드	APT_HSMP_CD
+-- 2	지번	HOUS_ID
+-- 3	아파트_단지_명	APT_HSMP_NM
+-- 4	아파트_빌라_구분_코드	APT_VILLA_SE_CD
+-- 5	DW_등록_일시	DW_REGIST_DT
+create table apt_hsmp_info(
+  apt_hsmp_cd String,
+  hous_id String,
+  apt_hsmp_nm String,
+  apt_villa_se_cd String,
+  dw_regist_dt Date)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 14. 아파트동정보 APT_APTCMPL_INFO
+-- 1	아파트_동_코드	APT_APTCMPL_CD
+-- 2	아파트_단지_코드	APT_HSMP_CD
+-- 3	아파트_동_명	APT_APTCMPL_NM
+-- 4	엑스좌표_값	XCNTS_VALUE
+-- 5	와이좌표_값	YDNTS_VALUE
+-- 6	행정구역_중복_여부	ADMINISTZONE_DPLCT_AT
+-- 7	블록_코드	BLCK_CD
+-- 8	DW_등록_일시	DW_REGIST_DT
+create table apt_aptcmpl_info(
+  apt_aptcmpl_cd String,
+  apt_hsmp_cd String,
+  apt_aptcmpl_nm String,
+  xcnts_value Double,
+  ydnts_value Double,
+  administzone_dplct_at String,
+  blck_cd String,
+  dw_regist_dt Date)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+
+
+
+### 15. 아파트호정보 APT_HO_INFO
+-- 1	아파트_호_코드	APT_HO_CD
+-- 2	아파트_동_코드	APT_APTCMPL_CD
+-- 3	아파트_호_명	APT_HO_NM
+-- 4	아파트_호_층_수	APT_HO_FLOOR_CO
+-- 5	아파트_호_면적	APT_HO_AE
+-- 6	발표_일자	PRESNATN_DE
+-- 7	아파트_기준시가_금액	APT_STDR_MKTC_AMT
+-- 8	DW_등록_일시	DW_REGIST_DT
+create table apt_ho_info(
+  apt_ho_cd String,
+  apt_aptcmpl_cd String,
+  apt_ho_nm String,
+  apt_ho_floor_co Double,
+  apt_ho_ae Double,
+  presnatn_de String,
+  apt_stdr_mktc_amt Double,
+  dw_regist_dt Date)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+
+### 16. 버스정거장정보 STTN_INFO
+-- 1	정거장_ID	BUS_STTN_ID
+-- 2	정거장_명	BUS_STTN_NM
+-- 3	엑스좌표_값	XCNTS_VALUE
+-- 4	와이좌표_값	YDNTS_VALUE
+-- 5	블록_코드	BLCK_CD
+-- 6	행정동_코드	ADSTRD_CD
+-- 7	시군구_코드	SIGNGU_CD
+create table sttn_info(
+  bus_sttn_id String,
+  bus_sttn_nm String,
+  xcnts_value Double,
+  ydnts_value Double,
+  blck_cd String,
+  adstrd_cd String,
+  signgu_cd String)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 17. 지하철역정보 SUBWAY_STATN
+-- 1	지하철_역_ID	SUBWAY_STATN_ID
+-- 2	지하철_역_명	SUBWAY_STATN_NM
+-- 3	엑스좌표_값	XCNTS_VALUE
+-- 4	와이좌표_값	YDNTS_VALUE
+-- 5	블록_코드	BLCK_CD
+-- 6	행정동_코드	ADSTRD_CD
+-- 7	시군구_코드	SIGNGU_CD
+create table subway_statn(
+  subway_statn_id String,
+  subway_statn_nm String,
+  xcnts_value Double,
+  ydnts_value Double,
+  blck_cd String,
+  adstrd_cd String,
+  signgu_cd String)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 18. 집객시설정보 VIATR_FCLTY_INFO
+-- 1	기준_년월	STDR_YM
+-- 2	집객_시설_구분_코드	VIATR_FCLTY_SE_CD
+-- 3	집객_시설_코드	VIATR_FCLTY_CD
+-- 4	집객_시설_ID	VIATR_FCLTY_ID
+-- 5	집객_시설_명	VIATR_FCLTY_NM
+-- 6	주소_코드	ADRES_CD
+-- 7	주소_명	ADRES_NM
+-- 8	전화번호	TELNO
+-- 9	엑스좌표_값	XCNTS_VALUE
+-- 10	와이좌표_값	YDNTS_VALUE
+-- 11	주소_정제_구분자	ADRES_REFINE_SPRTR
+-- 12	블록_코드	BLCK_CD
+-- 13	등록_일자	REGIST_DE
+-- 14	말소_일자	ERSR_DE
+-- 15	DW_등록_일시	DW_REGIST_DT
+create table viatr_fclty_info(
+  stdr_ym String,
+  viatr_fclty_se_cd String,
+  viatr_fclty_cd String,
+  viatr_fclty_id String,
+  viatr_fclty_nm String,
+  adres_cd String,
+  adres_nm String,
+  telno String,
+  xcnts_value Double,
+  ydnts_value Double,
+  adres_refine_sprtr String,
+  blck_cd String,
+  regist_de String,
+  ersr_de String,
+  dw_regist_dt Date)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 19. 학교정보 SCHOOL_INFO
+-- 1	학교코드	SCHOOL_CD
+-- 2	학교명	SCHOOL_NM
+-- 3	본분교구분	CAMPUS_CLSS
+-- 4	학교상태	STATUS_CLSS
+-- 5	소유형태	FOUND_NM
+-- 6	학교유형1	SCHOOL_CLSS1
+-- 7	학교유형2	SCHOOL_CLSS2
+-- 8	우편번호	ZP
+-- 9	주소	ADDRESS
+-- 10	전화번호	TEL
+-- 11	팩스번호	FAX
+-- 12	여학생수	STU_F_CNT
+-- 13	남학생수	STU_M_CNT
+-- 14	학급수	CLASS_CNT
+-- 15	여교원수	TEA_F_CNT
+-- 16	남교원수	TEA_M_CNT
+-- 17	설립일자	OPEN_DATE
+-- 18	지번	HOUS_ID
+-- 19	정제구분자	PROC_CLSS
+-- 20	X좌표	X_AXIS
+-- 21	Y좌표	Y_AXIS
+-- 22	블록코드	BLCK_CD
+create table school_info(
+  school_cd String,
+  school_nm String,
+  campus_clss String,
+  status_clss String,
+  found_nm String,
+  school_clss1 String,
+  school_clss2 String,
+  zp String,
+  address String,
+  tel String,
+  fax String,
+  stu_f_cnt Double,
+  stu_m_cnt Double,
+  class_cnt Double,
+  tea_f_cnt Double,
+  tea_m_cnt Double,
+  open_date String,
+  hous_id String,
+  proc_clss String,
+  x_axis Double,
+  y_axis Double,
+  blck_cd String)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 20. 시군구정보 SIGNGU_DIM
+-- 1	NO	ID순서
+-- 1	SIGNGU_CD	시군구_코드
+-- 2	SIGNGU_CD_NM	시군구_코드_명
+create table signgu_dim(
+  no Double,
+  signgu_cd String,
+  signgu_cd_nm String)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+
+### 21.행정동정보 ADSTRD_DIM
+-- 1 NO	ID순서
+-- 2 ADSTRD_CD	행정동_코드
+-- 3 ADSTRD_CD_NM	행정동_코드_명
+-- 4 SIDO_NM	시군구_코드
+-- 5 SIGNGU_CD_NM	시군구_코드_명
+create table adstrd_dim(
+  no double,
+  adstrd_cd string,
+  adstrd_cd_nm string,
+  sido_nm string,
+  signgu_cd_nm string)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 22.그리드50코드정보 GRID50_DIM
+-- 1	UNI_ID	ID
+-- 2	GRID50_CD	그리드50코드
+-- 3	ADSTRD_NM	행정동명
+-- 4	SIGNGU_CD_NM	시군구명
+-- 5	SIDO_NM	시도명
+-- 6	ADSTRD_CD	행정동코드
+-- 7	SIGNGU_CD	시군구_코드
+-- 8	SIDO_CD	시도_코드
+-- 9	BLK_CD	블록_코드
+-- 10	BLK_NM	블록명
+-- 11	ADMI_CD
+-- 12	X_COORD	X좌표(UTMK)
+-- 13	Y_COORD	Y좌표(UTMK)
+-- 14	XCNTS_VALUE	X좌표(GRS80)
+-- 15	YDNTS_VALUE	Y좌표(GRS80)
+create table grid50_dim(
+  uni_id String,
+  grid50_cd String,
+  adstrd_nm String,
+  signgu_cd_nm String,
+  sido_nm String,
+  adstrd_cd String,
+  signgu_cd String,
+  sido_cd String,
+  blk_cd String,
+  blk_nm String,
+  admi_cd String,
+  x_coord Double,
+  y_coord Double,
+  xcnts_value Double,
+  ydnts_value Double)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+
+### 23.블록정보 BLCK_DIM
+-- 1	BLCK_CD	블록_코드
+-- 2	BLCK_CD_NM	블록_코드_명
+-- 3	ADSTRD_CD	행정동_코드
+-- 4	COAR_CD	집계구코드
+-- 5	SIGNGU_CD	시군구_코드
+create table blck_dim(
+  blck_cd String,
+  blck_cd_nm String,
+  adstrd_cd String,
+  coar_cd String,
+  signgu_cd String)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+
+### 24. 발달상권정보 DEVLOP_TRDAR_DIM
+-- 1	DEVLOP_TRDAR_NO	발달_상권_번호
+-- 2	DEVLOP_TRDAR_NM	발달_상권_명
+create table devlop_trdar_dim(
+  devlop_trdar_no String,
+  devlop_trdar_nm String)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 25. 골목상권정보 BLCK_TRDAR_MTCHG_NEW
+-- 1	TRDAR_CD	상권_번호
+-- 2	BLCK_CD	블록_코드
+-- 3	DW_REGIST_DT	DW_등록_일시
+-- 4	ADSTRD_CD	행정동코드
+create table blck_trdar_mtchg_new(
+  trdar_cd Double,
+  blck_cd Double,
+  dw_regist_dt Date,
+  adstrd_cd Double)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 26. 공통코드정보 CMMN_CL_CD
+-- 1	NO	ID순서
+-- 2	SCET_CD	코드분류
+-- 3	SCLS_NM	코드분류명
+-- 4	CODE_CD	코드
+-- 5	CODE_NM	코드명
+create table cmmn_cl_cd(
+  no Double,
+  scet_cd String,
+  scls_nm String,
+  code_cd String,
+  code_nm String)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 27. 업종매핑 테이블 SVC_INDUTY_MAPNG_NEW
+-- 1	KB_INDUTY_CD	KB카드업종코드
+-- 2	SVC_INDUTY_CD	서비스업종코드
+-- 3	SVC_INDUTY_CD_NM	서비스업종코드명
+-- 4	INDUTY_CD	산업분류코드
+-- 5	INDUTY_CD_NM	산업분류코드명
+create table svc_induty_mapng_new(
+  kb_induty_cd Double,
+  svc_induty_cd Double,
+  svc_induty_cd_nm Double,
+  induty_cd Double,
+  induty_cd_nm Double)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 28. 골목상권영역 TBGIS_ALLEY_TRDAR_RELM
+-- 1	ID	OBJECTID
+-- 2	행정동코드	ALLEY_TRDA
+-- 3	행정동명	ALLEY_TR_1
+-- 4	X좌표	XCNTS_VALU
+-- 5	Y좌표	YDNTS_VALU
+-- 6	X좌표_최소값	XCNTS_MIN
+-- 7	Y좌표_최소값	YDNTS_MIN
+-- 8	X좌표_최대값	XCNTS_MAX
+-- 9	Y좌표_최대값	YDNTS_MAX
+-- 10	영역길이	DW_REGIST
+-- 11	영역면적	SIGNGU_CD
+-- 12	행정동코드	ADSTRD_CD
+-- 13	면적길이	Shape_Leng
+-- 14	면적크기	Shape_Area
+create table tbgis_alley_trdar_relm(
+  objectid Double,
+  alley_trda String,
+  alley_tr_1 String,
+  xcnts_valu Double,
+  ydnts_valu Double,
+  xcnts_min Double,
+  ydnts_min Double,
+  xcnts_max Double,
+  ydnts_max String,
+  dw_regist Date,
+  signgu_cd Double,
+  adstrd_cd String,
+  shape_leng Double,
+  shape_area Double)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 29. 발달상권영역 TBGIS_DEVLOP_TRDAR_RELM
+-- 1	ID	OBJECTID
+-- 2	발달상권코드	DEVLOP_TRD
+-- 3	발달상권명	DEVLOP_T_1
+-- 4	X좌표_최소값	XCNTS_MIN
+-- 5	Y좌표_최소값	YDNTS_MIN
+-- 6	X좌표_최대값	XCNTS_MAX
+-- 7	Y좌표_최대값	YDNTS_MAX
+-- 8	X좌표	XCNTS_CENT
+-- 9	Y좌표	YDNTS_CENT
+-- 10	등록일시	DW_REGIST
+-- 11	면적크기	TRDAR_AR
+-- 12	행정동코드	ADSTRD_CD
+-- 13	시군구코드	SIGNGU_CD
+-- 14	면적길이	Shape_Leng
+-- 15	면적크기	Shape_Area
+create table tbgis_devlop_trdar_relm(
+  objectid Double,
+  devlop_trd String,
+  devlop_t_1 String,
+  xcnts_min Double,
+  ydnts_min Double,
+  xcnts_max Double,
+  ydnts_max Double,
+  xcnts_cent Double,
+  ydnts_cent Double,
+  dw_regist Date,
+  trdar_ar Double,
+  adstrd_cd String,
+  signgu_cd String,
+  shape_leng Double,
+  shape_area Double)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 30. 건물정보 TBGIS_BULD_INFO
+-- 1	ID	OBJECTID
+-- 2	건물_용도_코드	BULD_PRPOS_CD
+-- 3	이전_건물_관리_번호	BEFORE_BULD_MANAGE_NO
+-- 4	기초_구간_일련번호	BSIS_SCTN_SN
+-- 5	기초_구역_번호	BSIS_ZONE_NO
+-- 6	건물_본번	BULD_MNNM
+-- 7	건물_명	BULD_NM
+-- 8	상세_건물_명	DETAIL_BULD_NM
+-- 9	건물_구분_코드	BULD_SE_CD
+-- 10	건물_부번	BULD_SLNO
+-- 11	건물_종속_구분_코드	BULD_DPNDCY_SE_CD
+-- 12	건물_일련번호	BULD_SN
+-- 13	읍면동_코드	EMD_CD
+-- 14	지상_층_수	GROUND_FLOOR_CO
+-- 15	리_코드	LI_CD
+-- 16	지번_본번	LNM_MNNM
+-- 17	지번_부번	LNM_SLNO
+-- 18	산_여부	MNTN_AT
+-- 19	도로명_코드	RN_CD
+-- 20	시군구_코드	SIGNGU_CD
+-- 21	지하_층_수	UNDGRND_FLOOR_CO
+-- 22	우편번호	ZIP
+-- 23	건물_엑스좌표_중심_값	BULD_XCNTS_CENTER_VALUE
+-- 24	건물_와이좌표_중심_값	BULD_YDNTS_CENTER_VALUE
+-- 25	주소_코드	ADRES_CD
+-- 26	연면적_값	TOTAR_VALUE
+-- 27	행정동_코드	ADSTRD_CD
+-- 28	블록_코드	BLCK_CD
+-- 29	집계구_코드	COAR_CD
+-- 30	엑스좌표_최소_값	XCNTS_MIN_VALUE
+-- 31	와이좌표_최소_값	YDNTS_MIN_VALUE
+-- 32	엑스좌표_최대_값	XCNTS_MAX_VALUE
+-- 33	와이좌표_최대_값	YDNTS_MAX_VALUE
+-- 34	기준_년월	STDR_YM
+-- 35	DW_등록_일시	DW_REGIST_DT
+-- 36	건물_엑스좌표_중심_값_TM	BULD_XCNTS_CENTER_TM
+-- 37	건물_와이좌표_중심_값_TM	BULD_YDNTS_CENTER_TM
+-- 38	면적길이	Shape_Leng
+-- 39	면적크기	Shape_Area
+create table tbgis_buld_info(
+  objectid Double,
+  buld_prpos_cd String,
+  before_buld_manage_no String,
+  bsis_sctn_sn Double,
+  bsis_zone_no String,
+  buld_mnnm Double,
+  buld_nm String,
+  detail_buld_nm String,
+  buld_se_cd String,
+  buld_slno Double,
+  buld_dpndcy_se_cd String,
+  buld_sn Double,
+  emd_cd String,
+  ground_floor_co Double,
+  li_cd String,
+  lnm_mnnm Double,
+  lnm_slno Double,
+  mntn_at String,
+  rn_cd String,
+  signgu_cd String,
+  undgrnd_floor_co Double,
+  zip String,
+  buld_xcnts_center_value Double,
+  buld_ydnts_center_value Double,
+  adres_cd String,
+  totar_value Double,
+  adstrd_cd String,
+  blck_cd String,
+  coar_cd String,
+  xcnts_min_value Double,
+  ydnts_min_value Double,
+  xcnts_max_value Double,
+  ydnts_max_value Double,
+  stdr_ym String,
+  dw_regist_dt Date,
+  buld_xcnts_center_tm Double,
+  buld_ydnts_center_tm Double,
+  shape_leng Double,
+  shape_area Double)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 31. 도로구간정보 TBGIS_RDSC_INFO
+-- 1	기초_간격_값	BSIS_INTRVL_VALUE
+-- 2	교차로_수	CRSRD_CO
+-- 3	영문_도로명	ENG_RN
+-- 4	입력_방법_구분_코드	INPUT_MTH_SE_CD
+-- 5	국도_번호	NLRD_NO
+-- 6	고시_일자	NTFC_DE
+-- 7	분기_도로구간_일련번호	DIVG_RDSC_SN
+-- 8	분기_시군구_코드	DIVG_SIGNGU_CD
+-- 9	기점_명	CDPNT_NM
+-- 10	도로구간_종속_구분_코드	RDSC_DPNDCY_SE_CD
+-- 11	도로구간_일련번호	RDSC_SN
+-- 12	종점_명	TMNL_NM
+-- 13	도로명	RN
+-- 14	도로명_코드	RN_CD
+-- 15	도로_폭_값	ROAD_BT_VALUE
+-- 16	도로_길이_값	ROAD_LT_VALUE
+-- 17	물리적_도로_길이_값	PHYSIC_ROAD_LT_VALUE
+-- 18	도로_위계_구분_코드	ROAD_GRANK_SE_CD
+-- 19	시군구_코드	SIGNGU_CD
+-- 20	광역_도로_구분_코드	WDR_ROAD_SE_CD
+-- 21	엑스좌표_값	XCNTS_VALUE
+-- 22	와이좌표_값	YDNTS_VALUE
+-- 23	엑스좌표_최소_값	XCNTS_MIN_VALUE
+-- 24	와이좌표_최소_값	YDNTS_MIN_VALUE
+-- 25	엑스좌표_최대_값	XCNTS_MAX_VALUE
+-- 26	와이좌표_최대_값	YDNTS_MAX_VALUE
+-- 27	도로_코드	ROAD_CD
+-- 28	모양_형상_정보	SHAPE_FRM_INFO
+-- 29	기준_년월	STDR_YM
+-- 30	DW_등록_일시	DW_REGIST_DT
+create table tbgis_rdsc_info(
+  bsis_intrvl_value String,
+  crsrd_co Double,
+  eng_rn String,
+  input_mth_se_cd String,
+  nlrd_no String,
+  ntfc_de String,
+  divg_rdsc_sn Double,
+  divg_signgu_cd String,
+  cdpnt_nm String,
+  rdsc_dpndcy_se_cd String,
+  rdsc_sn Double,
+  tmnl_nm String,
+  rn String,
+  rn_cd String,
+  road_bt_value Double,
+  road_lt_value Double,
+  physic_road_lt_value Double,
+  road_grank_se_cd String,
+  signgu_cd String,
+  wdr_road_se_cd String,
+  xcnts_value Double,
+  ydnts_value Double,
+  xcnts_min_value Double,
+  ydnts_min_value Double,
+  xcnts_max_value Double,
+  ydnts_max_value Double,
+  road_cd String,
+  shape_frm_info String,
+  stdr_ym String,
+  dw_regist_dt Date)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 32. 도로링크현상 TBGIS_ROAD_LINK_FRM
+-- 1	ID	OBJECTID
+-- 2	로드링크ID	ROAD_LINK
+-- 3	도로명코드	ROAD_CD
+-- 4	X좌표_최소값	XCNTS_MIN
+-- 5	Y좌표_최소값	YDNTS_MIN
+-- 6	X좌표_최대값	XCNTS_MAX
+-- 7	Y좌표_최대값	YDNTS_MAX
+-- 8	등록일시	DW_REGIST
+-- 9	시군구코드	SIGNGU_CD
+-- 10	행정동코드	ADSTRD_CD
+-- 11	면적길이	Shape_Leng
+create table tbgis_road_link_frm(
+  objectid Double,
+  road_link String,
+  road_cd String,
+  xcnts_min Double,
+  ydnts_min Double,
+  xcnts_max Double,
+  ydnts_max Double,
+  dw_regist Date,
+  signgu_cd String,
+  adstrd_cd String,
+  shape_leng Double)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 33. 그리드50영역정보 TBGIS_GRID50_DIM
+-- 1	ID	OBJECTID_1
+-- 2	그리드50코드	GRID50_CD
+-- 3	X좌표	X_Center
+-- 4	Y좌표	Y_Center
+-- 5	면적길이	Shape_Leng
+-- 6	면적크기	Shape_Area
+create table tbgis_grid50_dim(
+  objectid_1 Double,
+  grid50_cd String,
+  x_center Double,
+  y_center Double,
+  shape_leng Double,
+  shape_area Double)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+
+### 34. 블록영역정보 TBGIS_BLCK_DIM
+-- 1	ID	OBJECTID
+-- 2	블록_코드	BLCK_CD
+-- 3	블록_명	BLCK_NM
+-- 4	행정동_코드	ADSTRD_CD
+-- 5	엑스좌표_최소_값	XCNTS_MIN_VALUE
+-- 6	와이좌표_최소_값	YDNTS_MIN_VALUE
+-- 7	엑스좌표_최대_값	XCNTS_MAX_VALUE
+-- 8	와이좌표_최대_값	YDNTS_MAX_VALUE
+-- 9	엑스좌표_값	XCNTS_VALUE
+-- 10	와이좌표_값	YDNTS_VALUE
+-- 11	집계구_코드	COAR_CD
+-- 12	DW_등록_일시	DW_REGIST_DT
+-- 13	시군구_코드	SIGNGU_CD
+-- 14	면적길이	Shape_Leng
+-- 15	면적크기	Shape_Area
+create table tbgis_blck_dim(
+  objectid Double,
+  blck_cd String,
+  blck_nm String,
+  adstrd_cd String,
+  xcnts_min_value Double,
+  ydnts_min_value Double,
+  xcnts_max_value Double,
+  ydnts_max_value Double,
+  xcnts_value Double,
+  ydnts_value Double,
+  coar_cd String,
+  dw_regist_dt Date,
+  signgu_cd String,
+  shape_leng Double,
+  shape_area Double)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 35. 시군구코드 TBGIS_SIGNGU_BNDRY
+-- 1	ID	OBJECTID
+-- 2	시군구코드	SIGNGU_CD
+-- 3	시군구명	SIGNGU_NM
+-- 4	X좌표_최소값	XCNTS_MIN
+-- 5	Y좌표_최소값	YDNTS_MIN
+-- 6	X좌표_최대값	XCNTS_MAX
+-- 7	Y좌표_최대값	YDNTS_MAX
+-- 8	등록일시	DW_REGIST
+-- 9	면적길이	Shape_Leng
+-- 10	면적크기	Shape_Area
+create table tbgis_signgu_bndry(
+  objectid Double,
+  signgu_cd String,
+  signgu_nm String,
+  xcnts_min Double,
+  ydnts_min Double,
+  xcnts_max Double,
+  ydnts_max Double,
+  dw_regist Date,
+  shape_leng Double,
+  shape_area Double)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 36. 행정동영역 TBGIS_ADSTRD_BNDRY
+-- 1	ID	OBJECTID
+-- 2	행정동코드	ADSTRD_CD
+-- 3	행정동명	ADSTRD_NM
+-- 4	X좌표_최소값	XCNTS_MIN
+-- 5	Y좌표_최소값	YDNTS_MIN
+-- 6	X좌표_최대값	XCNTS_MAX
+-- 7	Y좌표_최대값	YDNTS_MAX
+-- 8	등록일시	DW_REGIST
+-- 9	시군구코드	SIGNGU_CD
+-- 10	면적길이	Shape_Leng
+-- 11	면적크기	Shape_Area
+create table tbgis_adstrd_bndry(
+  objectid Double,
+  adstrd_cd String,
+  adstrd_nm String,
+  xcnts_min Double,
+  ydnts_min Double,
+  xcnts_max Double,
+  ydnts_max Double,
+  dw_regist Date,
+  signgu_cd String,
+  shape_leng Double,
+  shape_area Double)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 37. 법정동코드 TBGIS_SCCO_EMD
+-- 1	ID	OBJECTID
+-- 2	법정동코드	EMD_CD
+-- 3	법정동영문명	EMD_ENG_NM
+-- 4	법정동명	EMD_KOR_NM
+-- 5	면적길이	Shape_Leng
+-- 6	면적크기	Shape_Area
+create table tbgis_scco_emd(
+  objectid Double,
+  emd_cd String,
+  emd_eng_nm String,
+  emd_kor_nm String,
+  shape_leng Double,
+  shape_area Double)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 38. 집계구코드 TBGIS_SOP_BND_INFO
+-- 1	객체식별자	OBJECTID_1
+-- 2	ID	OBJECTID
+-- 3	기준년도	BASE_YEAR
+-- 4	행정동코드	ADM_CD
+-- 5	집계구코드	TOT_REG_CD
+-- 6	면적길이	SHAPE_LENG
+-- 7	면적길이	Shape_Le_1
+-- 8	면적크기	Shape_Area
+create table tbgis_sop_bnd_info(
+  objectid_1 Double,
+  objectid Double,
+  base_year String,
+  adm_cd String,
+  tot_reg_cd String,
+  shape_leng Double,
+  shape_le_1 Double,
+  shape_area Double)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 39. 연속지적도 TBGIS_LSMD_INFO
+-- 1	ID	OBJECTID
+-- 2	필지고유번호	PNU
+-- 3	지번	JIBUN
+-- 4	발급승인코드	BCHK
+-- 5	원천오브젝트ID	SGG_OID
+-- 6	원천시군구코드	COL_ADM_SE
+-- 7	면적길이	Shape_Leng
+-- 8	면적크기	Shape_Area
+-- 9	X좌표	X_coord
+-- 10	Y좌표	Y_coord
+-- 11	면적	Area
+-- 12	길이	Length
+create table tbgis_lsmd_info(
+  objectid Double,
+  pnu String,
+  jibun String,
+  bchk String,
+  sgg_oid String,
+  col_adm_se String,
+  shape_leng Double,
+  shape_area Double,
+  x_coord Double,
+  y_coord Double,
+  area Double,
+  length Double)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 40. KB_거래내역 DB_JP_F
+-- 1	회원번호	회원번호
+-- 2	가맹점번호	가맹점번호
+-- 3	매출금액	매출금액
+-- 4	매출년월일	매출년월일
+-- 5	승인시각	승인시각
+-- 6	개인기업구분	개인기업구분
+create table db_jp_f(
+  회원번호 String,
+  가맹점번호 String,
+  매출금액 Double,
+  매출년월일 String,
+  승인시각 String,
+  개인기업구분 String)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 41. KB_업종정보 DB_MCC_F
+-- 1	가맹점업종코드	가맹점업종코드
+-- 2	가맹점업종명	가맹점업종명
+-- 3	가맹점업종대분류명	가맹점업종대분류명
+-- 4	가맹점업종중분류명	가맹점업종중분류명
+create table db_mcc_f(
+  가맹점업종코드 String,
+  가맹점업종명 String,
+  가맹점업종대분류명 String,
+  가맹점업종중분류명 String)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 42. KB_회원정보 DB_MEM_F
+-- 1	회원번호	회원번호
+-- 2	성별	성별
+-- 3	연령대	연령대
+create table db_mem_f(
+  회원번호 String,
+  성별 String,
+  연령대 String)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
+
+### 43. KB가맹점정보 DB_SOTRE_F
+-- 1	가맹점번호	가맹점번호
+-- 2	가맹점업종코드	가맹점업종코드
+-- 3	시군구명	시군구명
+-- 4	브랜드코드	브랜드코드
+create table db_sotre_f(
+  가맹점번호 String,
+  가맹점업종코드 String,
+  시군구명 String,
+  브랜드코드 String)
+row format delimited fields terminated by '|'
+lines terminated by '\n'
+TBLPROPERTIES("skip.header.line.count"="1")
